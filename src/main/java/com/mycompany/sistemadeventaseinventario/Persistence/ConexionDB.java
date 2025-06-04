@@ -10,7 +10,7 @@ import java.sql.SQLException;
  */
 public class ConexionDB {
 
-    Connection conectar = null;
+    protected Connection conectar = null;
     String user = "fvelasquezl";
     String pasword = "root123";
     String ip = "localhost";

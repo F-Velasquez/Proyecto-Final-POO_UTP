@@ -198,6 +198,7 @@ public class Clientes extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnAgregarProductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarProductoActionPerformed
+
         JFrame principal = (JFrame) SwingUtilities.getWindowAncestor(this);
         AddNuevoClientes nuevoClienteVentana = new AddNuevoClientes(principal);
         nuevoClienteVentana.setVisible(true);

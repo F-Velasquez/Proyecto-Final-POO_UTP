@@ -10,18 +10,16 @@ import javax.swing.JFrame;
 public class AddNuevoClientes extends JDialog {
 
     public AddNuevoClientes(JFrame ventana) {
-        
-        super (ventana, "Nuevo Cliente",true);
+
+        super(ventana, "Nuevo Cliente", true);
         setLocationRelativeTo(ventana);
         initComponents();
-        
+
     }
 
     public void InitStyles() {
-        
+
         setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-        
-        
 
     }
 

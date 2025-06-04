@@ -1,13 +1,13 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package com.mycompany.sistemadeventaseinventario.GUI.Login;
 
 import com.formdev.flatlaf.intellijthemes.materialthemeuilite.FlatMTMaterialLighterIJTheme;
 import com.mycompany.sistemadeventaseinventario.GUI.Principal.Principal;
+import com.mycompany.sistemadeventaseinventario.Logic.Clases.Usuario;
+import com.mycompany.sistemadeventaseinventario.Persistence.DAO.DAOUsuariosImpl;
+import com.mycompany.sistemadeventaseinventario.Persistence.Interfaces.DAOUsuarios;
 import java.awt.Color;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
 
 /**
@@ -16,12 +16,17 @@ import javax.swing.SwingUtilities;
  */
 public class Login extends javax.swing.JFrame {
 
-    //ejemplo de pull en github
+    //crear variable para las cordenadas de la ventana 
     int xMouse, yMouse;
 
     public Login() {
 
         initComponents();
+        initStylles();
+    }
+
+    private void initStylles() {
+        iniciarSesion.requestFocus();
     }
 
     /**
@@ -41,12 +46,12 @@ public class Login extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         panelXClose = new javax.swing.JPanel();
-        jLabel11 = new javax.swing.JLabel();
+        btnclose = new javax.swing.JLabel();
         panelminimize = new javax.swing.JPanel();
         minimize = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
-        jLabel7 = new javax.swing.JLabel();
+        iniciarSesion = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
         txtUser = new javax.swing.JTextField();
         jSeparator1 = new javax.swing.JSeparator();
@@ -54,8 +59,7 @@ public class Login extends javax.swing.JFrame {
         paswordUser = new javax.swing.JPasswordField();
         jSeparator2 = new javax.swing.JSeparator();
         panelIniciarsession = new javax.swing.JPanel();
-        jLabel10 = new javax.swing.JLabel();
-        restPasword = new javax.swing.JLabel();
+        lbiniciar_sesion = new javax.swing.JLabel();
         HeaderExit = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -90,21 +94,21 @@ public class Login extends javax.swing.JFrame {
 
         panelXClose.setBackground(new java.awt.Color(11, 33, 56));
 
-        jLabel11.setBackground(new java.awt.Color(106, 140, 255));
-        jLabel11.setFont(new java.awt.Font("Roboto Light", 0, 24)); // NOI18N
-        jLabel11.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel11.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel11.setText("X");
-        jLabel11.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jLabel11.addMouseListener(new java.awt.event.MouseAdapter() {
+        btnclose.setBackground(new java.awt.Color(106, 140, 255));
+        btnclose.setFont(new java.awt.Font("Roboto Light", 0, 24)); // NOI18N
+        btnclose.setForeground(new java.awt.Color(0, 0, 0));
+        btnclose.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        btnclose.setText("X");
+        btnclose.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnclose.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabel11MouseClicked(evt);
+                btncloseMouseClicked(evt);
             }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
-                jLabel11MouseEntered(evt);
+                btncloseMouseEntered(evt);
             }
             public void mouseExited(java.awt.event.MouseEvent evt) {
-                jLabel11MouseExited(evt);
+                btncloseMouseExited(evt);
             }
         });
 
@@ -112,13 +116,13 @@ public class Login extends javax.swing.JFrame {
         panelXClose.setLayout(panelXCloseLayout);
         panelXCloseLayout.setHorizontalGroup(
             panelXCloseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel11, javax.swing.GroupLayout.DEFAULT_SIZE, 60, Short.MAX_VALUE)
+            .addComponent(btnclose, javax.swing.GroupLayout.DEFAULT_SIZE, 60, Short.MAX_VALUE)
         );
         panelXCloseLayout.setVerticalGroup(
             panelXCloseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelXCloseLayout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(btnclose, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         jPanel2.add(panelXClose, new org.netbeans.lib.awtextra.AbsoluteConstraints(232, 0, 60, -1));
@@ -170,11 +174,11 @@ public class Login extends javax.swing.JFrame {
         jLabel5.setText("EL YUNQUE");
         BackGround.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 50, 140, 30));
 
-        jLabel7.setBackground(new java.awt.Color(64, 64, 64));
-        jLabel7.setFont(new java.awt.Font("Roboto Black", 0, 24)); // NOI18N
-        jLabel7.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel7.setText("INICIAR SESIÒN");
-        BackGround.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 110, 300, 50));
+        iniciarSesion.setBackground(new java.awt.Color(64, 64, 64));
+        iniciarSesion.setFont(new java.awt.Font("Roboto Black", 0, 24)); // NOI18N
+        iniciarSesion.setForeground(new java.awt.Color(0, 0, 0));
+        iniciarSesion.setText("INICIAR SESIÒN");
+        BackGround.add(iniciarSesion, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 110, 300, 50));
 
         jLabel8.setBackground(new java.awt.Color(64, 64, 64));
         jLabel8.setFont(new java.awt.Font("Roboto Light", 1, 18)); // NOI18N
@@ -236,21 +240,21 @@ public class Login extends javax.swing.JFrame {
             }
         });
 
-        jLabel10.setBackground(new java.awt.Color(11, 33, 56));
-        jLabel10.setFont(new java.awt.Font("Roboto Medium", 0, 18)); // NOI18N
-        jLabel10.setForeground(new java.awt.Color(235, 243, 255));
-        jLabel10.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel10.setText("iniciar sesión");
-        jLabel10.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jLabel10.addMouseListener(new java.awt.event.MouseAdapter() {
+        lbiniciar_sesion.setBackground(new java.awt.Color(11, 33, 56));
+        lbiniciar_sesion.setFont(new java.awt.Font("Roboto Medium", 0, 18)); // NOI18N
+        lbiniciar_sesion.setForeground(new java.awt.Color(235, 243, 255));
+        lbiniciar_sesion.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lbiniciar_sesion.setText("iniciar sesión");
+        lbiniciar_sesion.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        lbiniciar_sesion.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabel10MouseClicked(evt);
+                lbiniciar_sesionMouseClicked(evt);
             }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
-                jLabel10MouseEntered(evt);
+                lbiniciar_sesionMouseEntered(evt);
             }
             public void mouseExited(java.awt.event.MouseEvent evt) {
-                jLabel10MouseExited(evt);
+                lbiniciar_sesionMouseExited(evt);
             }
         });
 
@@ -258,30 +262,16 @@ public class Login extends javax.swing.JFrame {
         panelIniciarsession.setLayout(panelIniciarsessionLayout);
         panelIniciarsessionLayout.setHorizontalGroup(
             panelIniciarsessionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel10, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 390, Short.MAX_VALUE)
+            .addComponent(lbiniciar_sesion, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 390, Short.MAX_VALUE)
         );
         panelIniciarsessionLayout.setVerticalGroup(
             panelIniciarsessionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelIniciarsessionLayout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(lbiniciar_sesion, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         BackGround.add(panelIniciarsession, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 440, 390, 40));
-
-        restPasword.setFont(new java.awt.Font("Roboto Light", 1, 16)); // NOI18N
-        restPasword.setForeground(new java.awt.Color(18, 109, 183));
-        restPasword.setText("Restablecer contaseña");
-        restPasword.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        restPasword.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                restPaswordMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                restPaswordMouseExited(evt);
-            }
-        });
-        BackGround.add(restPasword, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 410, -1, -1));
 
         HeaderExit.setBackground(new java.awt.Color(255, 255, 255));
         HeaderExit.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
@@ -330,37 +320,27 @@ public class Login extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtUserActionPerformed
 
-    private void jLabel10MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel10MouseEntered
+    private void lbiniciar_sesionMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbiniciar_sesionMouseEntered
+
+        //efecto hover en el boton iniciar session
         panelIniciarsession.setBackground(new Color(16, 86, 148));
 
+    }//GEN-LAST:event_lbiniciar_sesionMouseEntered
 
-    }//GEN-LAST:event_jLabel10MouseEntered
+    private void lbiniciar_sesionMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbiniciar_sesionMouseExited
 
-    private void jLabel10MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel10MouseExited
-
+//efecto hover en el boton iniciar session
         panelIniciarsession.setBackground(new Color(32, 138, 215));
 
 
-    }//GEN-LAST:event_jLabel10MouseExited
-
-    private void restPaswordMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_restPaswordMouseEntered
-
-        restPasword.setForeground(new Color(16, 86, 148));
-
-
-    }//GEN-LAST:event_restPaswordMouseEntered
-
-    private void restPaswordMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_restPaswordMouseExited
-        restPasword.setForeground(new Color(106, 140, 255));
-
-     }//GEN-LAST:event_restPaswordMouseExited
+    }//GEN-LAST:event_lbiniciar_sesionMouseExited
 
     private void panelIniciarsessionMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panelIniciarsessionMousePressed
         // TODO add your handling code here:
     }//GEN-LAST:event_panelIniciarsessionMousePressed
 
     private void HeaderExitMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_HeaderExitMousePressed
-
+        // asignar las cordenadas del puntero del mouse, para saber donde se hace el clic de la interfaz grafica
         xMouse = evt.getX();
         yMouse = evt.getY();
 
@@ -368,27 +348,31 @@ public class Login extends javax.swing.JFrame {
 
     private void HeaderExitMouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_HeaderExitMouseDragged
 
+        /* se obtiene las cordenadas del mouse en la pantalla y se
+        actualiza la posición de la ventana para que siga el movimiento del mouse,
+        usando la diferencia entre las coordenadas actuales y la posición inicial del mouse al hacer clic.*/
         int X = evt.getXOnScreen();
         int Y = evt.getYOnScreen();
         this.setLocation(X - xMouse, Y - yMouse);
     }//GEN-LAST:event_HeaderExitMouseDragged
 
-    private void jLabel11MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel11MouseClicked
+    private void btncloseMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btncloseMouseClicked
         System.exit(0);
-    }//GEN-LAST:event_jLabel11MouseClicked
+    }//GEN-LAST:event_btncloseMouseClicked
 
-    private void jLabel11MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel11MouseEntered
-        jLabel11.setForeground(Color.WHITE);
+    private void btncloseMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btncloseMouseEntered
+        btnclose.setForeground(Color.WHITE);
         panelXClose.setBackground(Color.red);
-    }//GEN-LAST:event_jLabel11MouseEntered
+    }//GEN-LAST:event_btncloseMouseEntered
 
-    private void jLabel11MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel11MouseExited
-        jLabel11.setForeground(Color.BLACK);
+    private void btncloseMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btncloseMouseExited
+        btnclose.setForeground(Color.BLACK);
         panelXClose.setBackground(new Color(11, 33, 56));
 
-    }//GEN-LAST:event_jLabel11MouseExited
+    }//GEN-LAST:event_btncloseMouseExited
 
     private void minimizeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_minimizeMouseClicked
+        //minimizar la ventana
         setState(JFrame.ICONIFIED);
         panelminimize.setBackground(new Color(39, 53, 255));
     }//GEN-LAST:event_minimizeMouseClicked
@@ -410,8 +394,10 @@ public class Login extends javax.swing.JFrame {
     }//GEN-LAST:event_paswordUserActionPerformed
 
     private void txtUserMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtUserMousePressed
-       
-        
+
+        /* 
+        validar los campos del usuario y la contraseña para ingresar el texto por el usuario
+         */
         if (txtUser.getText().equals("Ingrese su nombre de usuario")) {
             txtUser.setText("");
             txtUser.setForeground(Color.BLACK);
@@ -436,43 +422,63 @@ public class Login extends javax.swing.JFrame {
 
      }//GEN-LAST:event_paswordUserMousePressed
 
-    private void jLabel10MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel10MouseClicked
+    private void lbiniciar_sesionMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbiniciar_sesionMouseClicked
 
-        FlatMTMaterialLighterIJTheme.setup();
+        String usuario = txtUser.getText();
+        char[] contraseniachar = paswordUser.getPassword();
+        String contrasenia = new String(contraseniachar);
 
-        SwingUtilities.invokeLater(() -> {
-            new Principal().setVisible(true);
-        });
-        this.dispose();
+        try {
+
+            DAOUsuarios dao = new DAOUsuariosImpl();
+            Usuario user = dao.validarUsuario(usuario, contrasenia);
+
+            if (user != null) {
+
+                FlatMTMaterialLighterIJTheme.setup(); // inicializa el tema del diseño de la libreria FlatLaf
+                SwingUtilities.invokeLater(() -> {    // se usa para ejecutar codigo relacionado con la IU en el hilo correcto
+                    new Principal(user).setVisible(true);
+                });
+                this.dispose();
+
+            } else {
+                JOptionPane.showMessageDialog(this, "correo o contrasenia incorrecto,\n Intentelo nuevamente", "Erro al iniciar sesion", JOptionPane.ERROR_MESSAGE);
+            }
+
+        } catch (Exception e) {
+
+            System.out.println(e.getMessage() + "Error al validar usuario");
+
+        }
 
 
-    }//GEN-LAST:event_jLabel10MouseClicked
+    }//GEN-LAST:event_lbiniciar_sesionMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel BackGround;
     private javax.swing.JPanel HeaderExit;
+    private javax.swing.JLabel btnclose;
+    private javax.swing.JLabel iniciarSesion;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel10;
-    private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
+    private javax.swing.JLabel lbiniciar_sesion;
     private javax.swing.JLabel minimize;
     private javax.swing.JPanel panelIniciarsession;
     private javax.swing.JPanel panelXClose;
     private javax.swing.JPanel panelminimize;
     private javax.swing.JPasswordField paswordUser;
-    private javax.swing.JLabel restPasword;
     private javax.swing.JTextField txtUser;
     // End of variables declaration//GEN-END:variables
+
 }

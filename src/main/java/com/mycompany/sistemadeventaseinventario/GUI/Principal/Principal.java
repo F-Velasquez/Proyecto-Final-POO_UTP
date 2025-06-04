@@ -4,14 +4,17 @@ import com.mycompany.sistemadeventaseinventario.GUI.Login.Login;
 import com.mycompany.sistemadeventaseinventario.GUI.Modulos.Clientes;
 import com.mycompany.sistemadeventaseinventario.GUI.Modulos.Inicio;
 import com.mycompany.sistemadeventaseinventario.GUI.Modulos.Inventario;
+import com.mycompany.sistemadeventaseinventario.GUI.Modulos.PerfilView;
 import com.mycompany.sistemadeventaseinventario.GUI.Modulos.Provedores;
 import com.mycompany.sistemadeventaseinventario.GUI.Modulos.Reportes;
 import com.mycompany.sistemadeventaseinventario.GUI.Modulos.Ventas;
+import com.mycompany.sistemadeventaseinventario.Logic.Clases.Usuario;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.border.MatteBorder;
 
 /**
@@ -19,6 +22,8 @@ import javax.swing.border.MatteBorder;
  * @author Frank
  */
 public class Principal extends javax.swing.JFrame {
+
+    Usuario usuarioActual;
 
     MatteBorder bordeNormal = new MatteBorder(0, 7, 0, 0, new Color(44, 62, 80));
     MatteBorder bordeHover = new MatteBorder(0, 7, 0, 0, new Color(247, 127, 27));
@@ -28,33 +33,30 @@ public class Principal extends javax.swing.JFrame {
     Clientes client = new Clientes();
     Reportes report = new Reportes();
     Provedores proved = new Provedores();
-    Login log = new Login();
 
-    public Principal() {
+    public Principal(Usuario usuario) {
+        this.usuarioActual = usuario;
         initComponents();
         initStyles();
         initContent();
     }
 
     private void initContent() {
-        
+
         //Abrir panel en pantalla completa
         this.setExtendedState(JFrame.MAXIMIZED_BOTH);
-        //ini.setSize(1366, 768);
-        //ini.setLocation(0, 0);
 
-        content.removeAll();
+        content.removeAll(); // importante cuando se realizar cambios dinamincamente en los componentes dentro de un mismo panel
         content.add(ini, BorderLayout.CENTER);
-        content.revalidate();
-        content.repaint();
+        content.revalidate(); // indica al panel que ha cambiado su contenido y necesita reiniciarse
+        content.repaint(); // se usa para volver a dibujar el panel. Después de hacer cambios en los componentes, 
+        //esto indica al sistema que el panel necesita ser actualizado visualmente para mostrar los cambios más recientes. 
+        if (usuarioActual != null) {
+            btnUsuario.setText(usuarioActual.getRol() + "    ▼");
+        } else {
+            btnUsuario.setText("NA  ▼");
 
-        String TipoUser = "Admin";
-        btnUsuario.setText(TipoUser + "  ▼");
-
-        btnUsuario.addActionListener(e -> {
-            menuUsuario.show(btnUsuario, 0, btnUsuario.getHeight());
-        });
-
+        }
     }
 
     private void initStyles() {
@@ -96,7 +98,6 @@ public class Principal extends javax.swing.JFrame {
 
         menuUsuario = new javax.swing.JPopupMenu();
         Perfil = new javax.swing.JMenuItem();
-        configuracion = new javax.swing.JMenuItem();
         jSeparator2 = new javax.swing.JPopupMenu.Separator();
         cerrarSesion = new javax.swing.JMenuItem();
         BackgroundPrincipal = new javax.swing.JPanel();
@@ -121,12 +122,18 @@ public class Principal extends javax.swing.JFrame {
         menuUsuario.setBorder(null);
 
         Perfil.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources_img/person_25dp_143F66_FILL0_wght400_GRAD0_opsz24.png"))); // NOI18N
-        Perfil.setText("Pefil");
+        Perfil.setText("Perfil");
+        Perfil.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                PerfilMouseClicked(evt);
+            }
+        });
+        Perfil.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                PerfilActionPerformed(evt);
+            }
+        });
         menuUsuario.add(Perfil);
-
-        configuracion.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources_img/settings_25dp_434343_FILL0_wght400_GRAD0_opsz24.png"))); // NOI18N
-        configuracion.setText("Configuracion");
-        menuUsuario.add(configuracion);
         menuUsuario.add(jSeparator2);
 
         cerrarSesion.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources_img/logout_25dp_BB271A_FILL0_wght400_GRAD0_opsz24.png"))); // NOI18N
@@ -364,22 +371,19 @@ public class Principal extends javax.swing.JFrame {
         jLabel2.setForeground(new java.awt.Color(0, 0, 0));
         jLabel2.setText("\"Cree en tu visión, trabaja con pasión y cada paso te acercará al éxito que soñaste.\"");
 
-        btnUsuario.setBackground(new java.awt.Color(248, 249, 250));
-        btnUsuario.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
+        btnUsuario.setBackground(new java.awt.Color(243, 255, 255));
+        btnUsuario.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         btnUsuario.setForeground(new java.awt.Color(0, 0, 0));
-        btnUsuario.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources_img/account_circle_27dp_000000_FILL0_wght400_GRAD0_opsz24.png"))); // NOI18N
-        btnUsuario.setToolTipText("");
-        btnUsuario.setActionCommand("User");
-        btnUsuario.setAlignmentY(0.3F);
-        btnUsuario.setBorder(null);
+        btnUsuario.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources_img/usuario.png"))); // NOI18N
         btnUsuario.setBorderPainted(false);
         btnUsuario.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         btnUsuario.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        btnUsuario.setIconTextGap(6);
-        btnUsuario.setMargin(new java.awt.Insets(2, 10, 2, 10));
-        btnUsuario.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnUsuarioActionPerformed(evt);
+        btnUsuario.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
+        btnUsuario.setIconTextGap(3);
+        btnUsuario.setMargin(new java.awt.Insets(2, 5, 2, 5));
+        btnUsuario.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnUsuarioMouseClicked(evt);
             }
         });
 
@@ -388,23 +392,22 @@ public class Principal extends javax.swing.JFrame {
         EncabezadoPanelLayout.setHorizontalGroup(
             EncabezadoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, EncabezadoPanelLayout.createSequentialGroup()
-                .addGap(139, 139, 139)
+                .addGap(87, 87, 87)
                 .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(27, 27, 27)
+                .addGap(76, 76, 76)
                 .addComponent(btnUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(11, 11, 11))
+                .addGap(14, 14, 14))
         );
         EncabezadoPanelLayout.setVerticalGroup(
             EncabezadoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, EncabezadoPanelLayout.createSequentialGroup()
+                .addGap(22, 22, 22)
+                .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(25, 25, 25))
             .addGroup(EncabezadoPanelLayout.createSequentialGroup()
                 .addGap(14, 14, 14)
-                .addGroup(EncabezadoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnUsuario, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(EncabezadoPanelLayout.createSequentialGroup()
-                        .addGap(8, 8, 8)
-                        .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGap(8, 8, 8)))
-                .addGap(14, 14, 14))
+                .addComponent(btnUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                .addGap(17, 17, 17))
         );
 
         content.setBackground(new java.awt.Color(255, 255, 255));
@@ -457,10 +460,6 @@ public class Principal extends javax.swing.JFrame {
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
-
-    private void btnUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUsuarioActionPerformed
-
-    }//GEN-LAST:event_btnUsuarioActionPerformed
 
     private void btnInicioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInicioActionPerformed
 
@@ -621,12 +620,41 @@ public class Principal extends javax.swing.JFrame {
 
     private void cerrarSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cerrarSesionActionPerformed
 
-        this.dispose();
-        log.setVisible(true);
-        log.setLocationRelativeTo(null);
-
+        int opcion = JOptionPane.showConfirmDialog(this, "¿Deseas cerrar sesión?", "Cerrar sesión", JOptionPane.YES_NO_OPTION);
+        if (opcion == JOptionPane.YES_OPTION) {
+            Login login = new Login();
+            login.setVisible(true);
+            login.setLocationRelativeTo(null);
+            this.dispose();
+        }
 
     }//GEN-LAST:event_cerrarSesionActionPerformed
+
+    private void btnUsuarioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnUsuarioMouseClicked
+
+        menuUsuario.show(btnUsuario, 0, btnUsuario.getHeight());
+
+    }//GEN-LAST:event_btnUsuarioMouseClicked
+
+    private void PerfilMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PerfilMouseClicked
+//no
+    }//GEN-LAST:event_PerfilMouseClicked
+
+    private void PerfilActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PerfilActionPerformed
+        PerfilView perfil = new PerfilView(usuarioActual);
+        perfil.setSize(1366, 768);
+        perfil.setLocation(0, 0);
+        content.removeAll(); // importante cuando se realizar cambios dinamincamente en los componentes dentro de un mismo panel
+        content.add(perfil, BorderLayout.CENTER);
+        content.revalidate(); // indica al panel que ha cambiado su contenido y necesita reiniciarse
+        content.repaint();
+
+        String textto = Perfil.getText();
+        txtHeadder.setText(textto);
+        txtHeadder.setForeground(new Color(44, 62, 80));
+        InsetarNuevoIcon("/resources_img/PerfilHeader.png");
+
+    }//GEN-LAST:event_PerfilActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -642,7 +670,6 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JButton btnclientes;
     private javax.swing.JButton btnprovedores;
     private javax.swing.JMenuItem cerrarSesion;
-    private javax.swing.JMenuItem configuracion;
     private javax.swing.JPanel content;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel5;

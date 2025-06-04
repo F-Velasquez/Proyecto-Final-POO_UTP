@@ -77,13 +77,13 @@ public class Inicio extends javax.swing.JPanel {
         InicioPanel.setMaximumSize(new java.awt.Dimension(2147483647, 2147483647));
         InicioPanel.setPreferredSize(new java.awt.Dimension(830, 423));
 
-        jLabel1.setFont(new java.awt.Font("Roboto ExtraBold", 0, 55)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Roboto ExtraBold", 0, 48)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(33, 37, 41));
         jLabel1.setText("User");
 
-        jLabel3.setFont(new java.awt.Font("Roboto ExtraBold", 0, 55)); // NOI18N
+        jLabel3.setFont(new java.awt.Font("Roboto ExtraBold", 0, 48)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(33, 37, 41));
-        jLabel3.setText("Bienvenid@ : ");
+        jLabel3.setText("Welcome:");
 
         tb2.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -111,9 +111,9 @@ public class Inicio extends javax.swing.JPanel {
         ));
         jScrollPane3.setViewportView(tb1);
 
-        btnProdMasVend.setBackground(new java.awt.Color(153, 255, 153));
+        btnProdMasVend.setBackground(new java.awt.Color(255, 255, 255));
         btnProdMasVend.setFont(new java.awt.Font("Roboto Medium", 0, 24)); // NOI18N
-        btnProdMasVend.setForeground(new java.awt.Color(255, 255, 255));
+        btnProdMasVend.setForeground(new java.awt.Color(153, 255, 153));
         btnProdMasVend.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources_img/dinero.png"))); // NOI18N
         btnProdMasVend.setText("Productos más vendidos");
         btnProdMasVend.setBorder(null);
@@ -135,9 +135,9 @@ public class Inicio extends javax.swing.JPanel {
             }
         });
 
-        btnProdBajS.setBackground(new java.awt.Color(255, 102, 102));
+        btnProdBajS.setBackground(new java.awt.Color(255, 255, 255));
         btnProdBajS.setFont(new java.awt.Font("Roboto Medium", 0, 24)); // NOI18N
-        btnProdBajS.setForeground(new java.awt.Color(255, 255, 255));
+        btnProdBajS.setForeground(new java.awt.Color(255, 102, 102));
         btnProdBajS.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources_img/advertencia (1).png"))); // NOI18N
         btnProdBajS.setText("Productos con bajo stock !!");
         btnProdBajS.setBorder(null);
@@ -165,44 +165,46 @@ public class Inicio extends javax.swing.JPanel {
         InicioPanelLayout.setHorizontalGroup(
             InicioPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(InicioPanelLayout.createSequentialGroup()
-                .addGap(380, 380, 380)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 420, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addComponent(jSeparator1)
-            .addGroup(InicioPanelLayout.createSequentialGroup()
                 .addGap(9, 9, 9)
-                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 340, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 231, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 420, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(InicioPanelLayout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(InicioPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(InicioPanelLayout.createSequentialGroup()
-                        .addGap(20, 20, 20)
-                        .addComponent(btnProdBajS, javax.swing.GroupLayout.DEFAULT_SIZE, 380, Short.MAX_VALUE)
-                        .addGap(20, 20, 20)
-                        .addComponent(btnProdMasVend, javax.swing.GroupLayout.DEFAULT_SIZE, 390, Short.MAX_VALUE))
+                        .addGroup(InicioPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(InicioPanelLayout.createSequentialGroup()
+                                .addGap(6, 6, 6)
+                                .addComponent(btnProdBajS, javax.swing.GroupLayout.DEFAULT_SIZE, 380, Short.MAX_VALUE)
+                                .addGap(28, 28, 28)
+                                .addComponent(btnProdMasVend, javax.swing.GroupLayout.DEFAULT_SIZE, 390, Short.MAX_VALUE))
+                            .addGroup(InicioPanelLayout.createSequentialGroup()
+                                .addGap(4, 4, 4)
+                                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                                .addGap(20, 20, 20)
+                                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)))
+                        .addGap(20, 20, 20))
                     .addGroup(InicioPanelLayout.createSequentialGroup()
-                        .addGap(10, 10, 10)
-                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                        .addGap(20, 20, 20)
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)))
-                .addGap(20, 20, 20))
+                        .addComponent(jSeparator1)
+                        .addContainerGap())))
         );
         InicioPanelLayout.setVerticalGroup(
             InicioPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(InicioPanelLayout.createSequentialGroup()
+                .addGroup(InicioPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel3)
+                    .addComponent(jLabel1))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(InicioPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnProdBajS)
+                    .addComponent(btnProdMasVend, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(InicioPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(InicioPanelLayout.createSequentialGroup()
-                        .addGap(20, 20, 20)
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(InicioPanelLayout.createSequentialGroup()
-                        .addGap(90, 90, 90)
-                        .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(10, 10, 10)
-                .addGroup(InicioPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnProdBajS, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnProdMasVend, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(20, 20, 20)
-                .addGroup(InicioPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 210, Short.MAX_VALUE)
+                    .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 281, Short.MAX_VALUE)
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
                 .addGap(13, 13, 13))
         );
