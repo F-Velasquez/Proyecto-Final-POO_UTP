@@ -63,8 +63,6 @@ public class Inicio extends javax.swing.JPanel {
     private void initComponents() {
 
         InicioPanel = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
         jScrollPane2 = new javax.swing.JScrollPane();
         tb2 = new javax.swing.JTable();
@@ -76,14 +74,6 @@ public class Inicio extends javax.swing.JPanel {
         InicioPanel.setBackground(new java.awt.Color(255, 255, 255));
         InicioPanel.setMaximumSize(new java.awt.Dimension(2147483647, 2147483647));
         InicioPanel.setPreferredSize(new java.awt.Dimension(830, 423));
-
-        jLabel1.setFont(new java.awt.Font("Roboto ExtraBold", 0, 48)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(33, 37, 41));
-        jLabel1.setText("User");
-
-        jLabel3.setFont(new java.awt.Font("Roboto ExtraBold", 0, 48)); // NOI18N
-        jLabel3.setForeground(new java.awt.Color(33, 37, 41));
-        jLabel3.setText("Welcome:");
 
         tb2.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -165,12 +155,6 @@ public class Inicio extends javax.swing.JPanel {
         InicioPanelLayout.setHorizontalGroup(
             InicioPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(InicioPanelLayout.createSequentialGroup()
-                .addGap(9, 9, 9)
-                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 231, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 420, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(InicioPanelLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(InicioPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(InicioPanelLayout.createSequentialGroup()
@@ -193,10 +177,7 @@ public class Inicio extends javax.swing.JPanel {
         InicioPanelLayout.setVerticalGroup(
             InicioPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(InicioPanelLayout.createSequentialGroup()
-                .addGroup(InicioPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel3)
-                    .addComponent(jLabel1))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(49, 49, 49)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(InicioPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -204,7 +185,7 @@ public class Inicio extends javax.swing.JPanel {
                     .addComponent(btnProdMasVend, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(InicioPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 281, Short.MAX_VALUE)
+                    .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 295, Short.MAX_VALUE)
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
                 .addGap(13, 13, 13))
         );
@@ -257,8 +238,6 @@ public class Inicio extends javax.swing.JPanel {
     private javax.swing.JPanel InicioPanel;
     private javax.swing.JButton btnProdBajS;
     private javax.swing.JButton btnProdMasVend;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JSeparator jSeparator1;

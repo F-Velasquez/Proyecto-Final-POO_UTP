@@ -27,6 +27,7 @@ public class Login extends javax.swing.JFrame {
 
     private void initStylles() {
         iniciarSesion.requestFocus();
+        FlatMTMaterialLighterIJTheme.setup();
     }
 
     /**
@@ -58,9 +59,8 @@ public class Login extends javax.swing.JFrame {
         jLabel9 = new javax.swing.JLabel();
         paswordUser = new javax.swing.JPasswordField();
         jSeparator2 = new javax.swing.JSeparator();
-        panelIniciarsession = new javax.swing.JPanel();
-        lbiniciar_sesion = new javax.swing.JLabel();
         HeaderExit = new javax.swing.JPanel();
+        btnIniciarSesion = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
@@ -232,47 +232,6 @@ public class Login extends javax.swing.JFrame {
         jSeparator2.setBackground(new java.awt.Color(102, 102, 102));
         BackGround.add(jSeparator2, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 260, 390, 10));
 
-        panelIniciarsession.setBackground(new java.awt.Color(32, 138, 215));
-        panelIniciarsession.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        panelIniciarsession.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                panelIniciarsessionMousePressed(evt);
-            }
-        });
-
-        lbiniciar_sesion.setBackground(new java.awt.Color(11, 33, 56));
-        lbiniciar_sesion.setFont(new java.awt.Font("Roboto Medium", 0, 18)); // NOI18N
-        lbiniciar_sesion.setForeground(new java.awt.Color(235, 243, 255));
-        lbiniciar_sesion.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lbiniciar_sesion.setText("iniciar sesión");
-        lbiniciar_sesion.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        lbiniciar_sesion.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                lbiniciar_sesionMouseClicked(evt);
-            }
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                lbiniciar_sesionMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                lbiniciar_sesionMouseExited(evt);
-            }
-        });
-
-        javax.swing.GroupLayout panelIniciarsessionLayout = new javax.swing.GroupLayout(panelIniciarsession);
-        panelIniciarsession.setLayout(panelIniciarsessionLayout);
-        panelIniciarsessionLayout.setHorizontalGroup(
-            panelIniciarsessionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(lbiniciar_sesion, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 390, Short.MAX_VALUE)
-        );
-        panelIniciarsessionLayout.setVerticalGroup(
-            panelIniciarsessionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelIniciarsessionLayout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(lbiniciar_sesion, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
-        );
-
-        BackGround.add(panelIniciarsession, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 440, 390, 40));
-
         HeaderExit.setBackground(new java.awt.Color(255, 255, 255));
         HeaderExit.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
             public void mouseDragged(java.awt.event.MouseEvent evt) {
@@ -286,6 +245,30 @@ public class Login extends javax.swing.JFrame {
         });
         HeaderExit.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
         BackGround.add(HeaderExit, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 800, 40));
+
+        btnIniciarSesion.setBackground(new java.awt.Color(32, 138, 215));
+        btnIniciarSesion.setFont(new java.awt.Font("Roboto Medium", 0, 18)); // NOI18N
+        btnIniciarSesion.setForeground(new java.awt.Color(255, 255, 255));
+        btnIniciarSesion.setText("INICIAR SESIÓN");
+        btnIniciarSesion.setFocusPainted(false);
+        btnIniciarSesion.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnIniciarSesion.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnIniciarSesionMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnIniciarSesionMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnIniciarSesionMouseExited(evt);
+            }
+        });
+        btnIniciarSesion.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnIniciarSesionActionPerformed(evt);
+            }
+        });
+        BackGround.add(btnIniciarSesion, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 410, 390, 50));
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -317,27 +300,8 @@ public class Login extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void txtUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtUserActionPerformed
-        // TODO add your handling code here:
+
     }//GEN-LAST:event_txtUserActionPerformed
-
-    private void lbiniciar_sesionMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbiniciar_sesionMouseEntered
-
-        //efecto hover en el boton iniciar session
-        panelIniciarsession.setBackground(new Color(16, 86, 148));
-
-    }//GEN-LAST:event_lbiniciar_sesionMouseEntered
-
-    private void lbiniciar_sesionMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbiniciar_sesionMouseExited
-
-//efecto hover en el boton iniciar session
-        panelIniciarsession.setBackground(new Color(32, 138, 215));
-
-
-    }//GEN-LAST:event_lbiniciar_sesionMouseExited
-
-    private void panelIniciarsessionMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panelIniciarsessionMousePressed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_panelIniciarsessionMousePressed
 
     private void HeaderExitMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_HeaderExitMousePressed
         // asignar las cordenadas del puntero del mouse, para saber donde se hace el clic de la interfaz grafica
@@ -390,7 +354,8 @@ public class Login extends javax.swing.JFrame {
     }//GEN-LAST:event_minimizeMouseExited
 
     private void paswordUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_paswordUserActionPerformed
-        // TODO add your handling code here:
+
+        btnIniciarSesion.doClick();
     }//GEN-LAST:event_paswordUserActionPerformed
 
     private void txtUserMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtUserMousePressed
@@ -422,7 +387,7 @@ public class Login extends javax.swing.JFrame {
 
      }//GEN-LAST:event_paswordUserMousePressed
 
-    private void lbiniciar_sesionMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbiniciar_sesionMouseClicked
+    private void btnIniciarSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIniciarSesionActionPerformed
 
         String usuario = txtUser.getText();
         char[] contraseniachar = paswordUser.getPassword();
@@ -452,12 +417,29 @@ public class Login extends javax.swing.JFrame {
         }
 
 
-    }//GEN-LAST:event_lbiniciar_sesionMouseClicked
+    }//GEN-LAST:event_btnIniciarSesionActionPerformed
+
+    private void btnIniciarSesionMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnIniciarSesionMouseEntered
+
+        btnIniciarSesion.setBackground(new Color(16, 86, 148));
+
+
+    }//GEN-LAST:event_btnIniciarSesionMouseEntered
+
+    private void btnIniciarSesionMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnIniciarSesionMouseExited
+        btnIniciarSesion.setBackground(new Color(32, 138, 215));
+    }//GEN-LAST:event_btnIniciarSesionMouseExited
+
+    private void btnIniciarSesionMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnIniciarSesionMouseClicked
+
+
+    }//GEN-LAST:event_btnIniciarSesionMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel BackGround;
     private javax.swing.JPanel HeaderExit;
+    private javax.swing.JButton btnIniciarSesion;
     private javax.swing.JLabel btnclose;
     private javax.swing.JLabel iniciarSesion;
     private javax.swing.JLabel jLabel1;
@@ -472,9 +454,7 @@ public class Login extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
-    private javax.swing.JLabel lbiniciar_sesion;
     private javax.swing.JLabel minimize;
-    private javax.swing.JPanel panelIniciarsession;
     private javax.swing.JPanel panelXClose;
     private javax.swing.JPanel panelminimize;
     private javax.swing.JPasswordField paswordUser;

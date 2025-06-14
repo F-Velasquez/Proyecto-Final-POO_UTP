@@ -140,7 +140,7 @@ public class AddNewPassword extends javax.swing.JDialog {
         String actual = txtActual.getText();
         String nueva = txtNueva.getText();
 
-        if (actual.isEmpty()) {
+        if (nueva.isEmpty()) {
             JOptionPane.showMessageDialog(this, "Debe ingresar una contraseña", "Error", JOptionPane.ERROR_MESSAGE);
             return;
         } else if (nueva.equals(actual)) {
