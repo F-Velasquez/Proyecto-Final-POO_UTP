@@ -80,7 +80,7 @@ public class DAOProductoImpl extends ConexionDB implements DAOProducto {
 
         try {
             this.establecerConexionDB();
-            //"select * from Productos WHERE Nombre LIKE Nombre = '%" + nombre + "%'";
+            
 
             PreparedStatement st = this.conectar.prepareStatement("SELECT * FROM Productos");
             ResultSet rs = st.executeQuery();

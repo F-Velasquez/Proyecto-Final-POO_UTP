@@ -8,23 +8,37 @@ import com.mycompany.sistemadeventaseinventario.Persistence.Interfaces.DAOUsuari
 import java.awt.Color;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
-import javax.swing.SwingUtilities;
+//import javax.swing.SwingUtilities;
 
 /**
+ * Ventana de inicio de sesión del sistema de ventas e inventario.
+ *
+ * En esta clase se codifica la interfaz gráfica de login para los usuarios del
+ * sistema. Permite validar credenciales y abrir la ventana principal si son
+ * correctas. También gestiona eventos de la ventana como cerrar, minimizar y
+ * mover.
  *
  * @author Frank
  */
 public class Login extends javax.swing.JFrame {
 
-    //crear variable para las cordenadas de la ventana 
+    /**
+     * Coordenadas del mouse para permitir arrastrar la ventana
+     */
     int xMouse, yMouse;
 
+    /**
+     * Constructor principal. Inicializa componentes y aplica estilos.
+     */
     public Login() {
 
         initComponents();
         initStylles();
     }
 
+    /**
+     * Aplica estilos iniciales a la ventana y configura el tema visual FlatLaf.
+     */
     private void initStylles() {
         iniciarSesion.requestFocus();
         FlatMTMaterialLighterIJTheme.setup();
@@ -303,66 +317,92 @@ public class Login extends javax.swing.JFrame {
 
     }//GEN-LAST:event_txtUserActionPerformed
 
+    /**
+     * Capturar la posición del mouse al hacer clic para permitir mover la
+     * ventana.
+     */
     private void HeaderExitMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_HeaderExitMousePressed
-        // asignar las cordenadas del puntero del mouse, para saber donde se hace el clic de la interfaz grafica
+        /* asignar las cordenadas del puntero del mouse, para saber donde se hace el clic de la interfaz grafica */
         xMouse = evt.getX();
         yMouse = evt.getY();
 
     }//GEN-LAST:event_HeaderExitMousePressed
 
+    /**
+     * Permite arrastrar la ventana con el mouse, actualizando su posición.
+     */
     private void HeaderExitMouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_HeaderExitMouseDragged
 
         /* se obtiene las cordenadas del mouse en la pantalla y se
-        actualiza la posición de la ventana para que siga el movimiento del mouse,
-        usando la diferencia entre las coordenadas actuales y la posición inicial del mouse al hacer clic.*/
+        *  actualiza la posición de la ventana para que siga el movimiento del mouse,
+        *  usando la diferencia entre las coordenadas actuales y la posición inicial del mouse al hacer clic.*/
         int X = evt.getXOnScreen();
         int Y = evt.getYOnScreen();
         this.setLocation(X - xMouse, Y - yMouse);
     }//GEN-LAST:event_HeaderExitMouseDragged
-
+    /**
+     * Cerrar la aplicación cuando se hace clic en el botón de cerrar.
+     */
     private void btncloseMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btncloseMouseClicked
         System.exit(0);
     }//GEN-LAST:event_btncloseMouseClicked
 
+    /**
+     * Cambia el color del botón cerrar cuando el mouse entra.
+     */
     private void btncloseMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btncloseMouseEntered
         btnclose.setForeground(Color.WHITE);
         panelXClose.setBackground(Color.red);
+
     }//GEN-LAST:event_btncloseMouseEntered
 
+    /**
+     * Restaura el color del botón cerrar cuando el mouse sale.
+     */
     private void btncloseMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btncloseMouseExited
         btnclose.setForeground(Color.BLACK);
         panelXClose.setBackground(new Color(11, 33, 56));
 
     }//GEN-LAST:event_btncloseMouseExited
 
+    /**
+     * Minimiza la ventana actual.
+     */
     private void minimizeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_minimizeMouseClicked
-        //minimizar la ventana
+
         setState(JFrame.ICONIFIED);
         panelminimize.setBackground(new Color(39, 53, 255));
     }//GEN-LAST:event_minimizeMouseClicked
 
+    /**
+     * Cambia el color del botón minimizar al pasar el mouse.
+     */
     private void minimizeMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_minimizeMouseEntered
         panelminimize.setBackground(new Color(197, 200, 206));
 
     }//GEN-LAST:event_minimizeMouseEntered
-
+    /**
+     * Restaura el color del botón minimizar cuando el mouse sale.
+     */
     private void minimizeMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_minimizeMouseExited
 
         panelminimize.setBackground(new Color(11, 33, 56));
-
-
     }//GEN-LAST:event_minimizeMouseExited
 
+    /**
+     * Ejecuta el botón de iniciar sesión al presionar Enter en el campo
+     * contraseña.
+     */
     private void paswordUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_paswordUserActionPerformed
 
         btnIniciarSesion.doClick();
     }//GEN-LAST:event_paswordUserActionPerformed
 
+    /**
+     * Limpia el campo de usuario si contiene el texto por defecto.
+     */
     private void txtUserMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtUserMousePressed
 
-        /* 
-        validar los campos del usuario y la contraseña para ingresar el texto por el usuario
-         */
         if (txtUser.getText().equals("Ingrese su nombre de usuario")) {
             txtUser.setText("");
             txtUser.setForeground(Color.BLACK);
@@ -373,7 +413,9 @@ public class Login extends javax.swing.JFrame {
         }
 
     }//GEN-LAST:event_txtUserMousePressed
-
+    /**
+     * Limpia el campo contraseña si contiene el texto por defecto.
+     */
     private void paswordUserMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_paswordUserMousePressed
 
         if (String.valueOf(paswordUser.getPassword()).equals("********")) {
@@ -386,7 +428,10 @@ public class Login extends javax.swing.JFrame {
         }
 
      }//GEN-LAST:event_paswordUserMousePressed
-
+    /**
+     * Lógica para validar las credenciales del usuario y abrir la ventana
+     * principal.
+     */
     private void btnIniciarSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIniciarSesionActionPerformed
 
         String usuario = txtUser.getText();
@@ -400,14 +445,16 @@ public class Login extends javax.swing.JFrame {
 
             if (user != null) {
 
-                FlatMTMaterialLighterIJTheme.setup(); // inicializa el tema del diseño de la libreria FlatLaf
+                new Principal(user).setVisible(true); // Crea y muestra la ventana principal
+                this.dispose(); // Cierra la ventana actual
+                /*FlatMTMaterialLighterIJTheme.setup(); // inicializa el tema del diseño de la libreria FlatLaf
                 SwingUtilities.invokeLater(() -> {    // se usa para ejecutar codigo relacionado con la IU en el hilo correcto
                     new Principal(user).setVisible(true);
                 });
-                this.dispose();
+                this.dispose();*/
 
             } else {
-                JOptionPane.showMessageDialog(this, "correo o contrasenia incorrecto,\n Intentelo nuevamente", "Erro al iniciar sesion", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, "correo o contrasenia incorrecto\n Intentelo nuevamente", "", JOptionPane.ERROR_MESSAGE);
             }
 
         } catch (Exception e) {
@@ -418,21 +465,22 @@ public class Login extends javax.swing.JFrame {
 
 
     }//GEN-LAST:event_btnIniciarSesionActionPerformed
-
+    /**
+     * Cambia el color del botón de iniciar sesión al pasar el mouse.
+     */
     private void btnIniciarSesionMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnIniciarSesionMouseEntered
 
         btnIniciarSesion.setBackground(new Color(16, 86, 148));
-
-
     }//GEN-LAST:event_btnIniciarSesionMouseEntered
 
+    /**
+     * Restaura el color del botón iniciar sesión cuando el mouse sale.
+     */
     private void btnIniciarSesionMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnIniciarSesionMouseExited
         btnIniciarSesion.setBackground(new Color(32, 138, 215));
     }//GEN-LAST:event_btnIniciarSesionMouseExited
 
     private void btnIniciarSesionMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnIniciarSesionMouseClicked
-
-
     }//GEN-LAST:event_btnIniciarSesionMouseClicked
 
 

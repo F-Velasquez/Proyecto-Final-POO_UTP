@@ -18,15 +18,21 @@ import javax.swing.JOptionPane;
 import javax.swing.border.MatteBorder;
 
 /**
+ * Clase de la ventana principal del sistema. Esta interfaz permite al usuario
+ * navegar entre los módulos disponibles: inicio, inventario, ventas, clientes,
+ * proveedores, reportes y perfil de usuario.
  *
  * @author Frank
  */
 public class Principal extends javax.swing.JFrame {
 
+    //Usuario actual que ha iniciado sesión.
     Usuario usuarioActual;
-
+    //Bordes para los botones del menu lateral 
     MatteBorder bordeNormal = new MatteBorder(0, 7, 0, 0, new Color(44, 62, 80));
     MatteBorder bordeHover = new MatteBorder(0, 7, 0, 0, new Color(247, 127, 27));
+
+    //Instancias de los módulos principales que se cargan en el panel central. //
     Inicio ini = new Inicio();
     Inventario inven = new Inventario();
     Ventas vent = new Ventas();
@@ -34,6 +40,11 @@ public class Principal extends javax.swing.JFrame {
     Reportes report = new Reportes();
     Provedores proved = new Provedores();
 
+    /**
+     * Constructor principal de la ventana
+     *
+     * @param usuario Usuario autenticado que ha iniciado sesión
+     */
     public Principal(Usuario usuario) {
         this.usuarioActual = usuario;
         initComponents();
@@ -41,9 +52,13 @@ public class Principal extends javax.swing.JFrame {
         initContent();
     }
 
+    /**
+     * Inicializa el contenido por defecto de la pantalla principal. Carga el
+     * módulo de Inicio y muestra el nombre del rol del usuario.
+     */
     private void initContent() {
 
-        //Abrir panel en pantalla completa
+        //Abrir la pantalla principal en pantalla completa
         this.setExtendedState(JFrame.MAXIMIZED_BOTH);
 
         content.removeAll(); // importante cuando se realizar cambios dinamincamente en los componentes dentro de un mismo panel
@@ -51,6 +66,8 @@ public class Principal extends javax.swing.JFrame {
         content.revalidate(); // indica al panel que ha cambiado su contenido y necesita reiniciarse
         content.repaint(); // se usa para volver a dibujar el panel. Después de hacer cambios en los componentes, 
         //esto indica al sistema que el panel necesita ser actualizado visualmente para mostrar los cambios más recientes. 
+
+        /* Validar e mostrar el rol del usuario que inicio session*/
         if (usuarioActual != null) {
             btnUsuario.setText(usuarioActual.getRol() + "    ▼");
         } else {
@@ -59,6 +76,10 @@ public class Principal extends javax.swing.JFrame {
         }
     }
 
+    /**
+     * Aplica estilos iniciales a los botones y carga el ícono por defecto del
+     * header.
+     */
     private void initStyles() {
 
         setTitle("");
@@ -73,6 +94,12 @@ public class Principal extends javax.swing.JFrame {
 
     }
 
+    /**
+     * Cambiar el ícono principal del header.
+     *
+     * @param rutaIcon Ruta del ícono a insertar (debe estar en la carpeta de
+     * recursos).
+     */
     private void InsetarNuevoIcon(String rutaIcon) {
 
         ImageIcon newIcon = new ImageIcon(getClass().getResource(rutaIcon));
@@ -80,6 +107,12 @@ public class Principal extends javax.swing.JFrame {
 
     }
 
+    /**
+     * Actualiza el texto del header superior con el nombre del botón
+     * seleccionado en el menu lateral.
+     *
+     * @param buton Botón del cual se obtiene el texto a mostrar
+     */
     private void GettexIcon(JButton buton) {
 
         String textto = buton.getText();
@@ -461,11 +494,13 @@ public class Principal extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
+    /**
+     * Carga el panel de inicio en el contenedor principal.
+     */
     private void btnInicioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInicioActionPerformed
 
-        ini.setSize(1366, 768);
-        ini.setLocation(0, 0);
-
+        //ini.setSize(1366, 768);
+        //ini.setLocation(0, 0);
         content.removeAll();
         content.add(ini, BorderLayout.CENTER);
         content.revalidate();
@@ -476,12 +511,16 @@ public class Principal extends javax.swing.JFrame {
 
 
     }//GEN-LAST:event_btnInicioActionPerformed
-
+    /**
+     * Restaura el borde normal del botón "Inicio" al salir el cursor.
+     */
     private void btnInicioMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnInicioMouseExited
 
         btnInicio.setBorder(bordeNormal);
     }//GEN-LAST:event_btnInicioMouseExited
-
+    /**
+     * Aplica borde resaltado al pasar el cursor sobre el botón "Inicio".
+     */
     private void btnInicioMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnInicioMouseEntered
 
         btnInicio.setBorder(bordeHover);
@@ -491,12 +530,13 @@ public class Principal extends javax.swing.JFrame {
     private void btnInicioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnInicioMouseClicked
         // TODO add your handling code here:
     }//GEN-LAST:event_btnInicioMouseClicked
-
+    /**
+     * Carga el panel de reportes.
+     */
     private void btnReportesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReportesActionPerformed
 
-        report.setSize(1366, 768);
-        report.setLocation(0, 0);
-
+        //report.setSize(1366, 768);
+        //report.setLocation(0, 0);
         content.removeAll();
         content.add(report, BorderLayout.CENTER);
         content.revalidate();
@@ -507,11 +547,15 @@ public class Principal extends javax.swing.JFrame {
 
 
     }//GEN-LAST:event_btnReportesActionPerformed
-
+    /**
+     * Restaura el borde normal del botón "Reportes" al salir el cursor.
+     */
     private void btnReportesMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnReportesMouseExited
         btnReportes.setBorder(bordeNormal);
     }//GEN-LAST:event_btnReportesMouseExited
-
+    /**
+     * Aplica borde resaltado al pasar el cursor sobre el botón "Reportes".
+     */
     private void btnReportesMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnReportesMouseEntered
         btnReportes.setBorder(bordeHover);
     }//GEN-LAST:event_btnReportesMouseEntered
@@ -519,12 +563,13 @@ public class Principal extends javax.swing.JFrame {
     private void btnReportesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnReportesMouseClicked
         // TODO add your handling code here:
     }//GEN-LAST:event_btnReportesMouseClicked
-
+    /**
+     * Carga el panel de clientes.
+     */
     private void btnclientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnclientesActionPerformed
 
-        client.setSize(1366, 768);
-        client.setLocation(0, 0);
-
+        //client.setSize(1366, 768);
+        //client.setLocation(0, 0);
         content.removeAll();
         content.add(client, BorderLayout.CENTER);
         content.revalidate();
@@ -533,21 +578,26 @@ public class Principal extends javax.swing.JFrame {
         GettexIcon(btnclientes);
         InsetarNuevoIcon("/resources_img/ClientesHeader.png");
     }//GEN-LAST:event_btnclientesActionPerformed
-
+    /**
+     * Restaura el borde del botón "Clientes" al salir el cursor.
+     */
     private void btnclientesMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnclientesMouseExited
         btnclientes.setBorder(bordeNormal);
 
     }//GEN-LAST:event_btnclientesMouseExited
-
+    /**
+     * Aplica borde resaltado al pasar el cursor sobre el botón "Clientes".
+     */
     private void btnclientesMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnclientesMouseEntered
         btnclientes.setBorder(bordeHover);
     }//GEN-LAST:event_btnclientesMouseEntered
-
+    /**
+     * Carga el panel de ventas.
+     */
     private void btnVentasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVentasActionPerformed
 
-        vent.setSize(1366, 768);
-        vent.setLocation(0, 0);
-
+        //vent.setSize(1366, 768);
+        //vent.setLocation(0, 0);
         content.removeAll();
         content.add(vent, BorderLayout.CENTER);
         content.revalidate();
@@ -557,16 +607,22 @@ public class Principal extends javax.swing.JFrame {
         InsetarNuevoIcon("/resources_img/ventasHeader.png");
 
     }//GEN-LAST:event_btnVentasActionPerformed
-
+    /**
+     * Restaura el borde del botón "Ventas" al salir el cursor.
+     */
     private void btnVentasMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnVentasMouseExited
         btnVentas.setBorder(bordeNormal);
     }//GEN-LAST:event_btnVentasMouseExited
-
+    /**
+     * Aplica borde resaltado al pasar el cursor sobre el botón "Ventas".
+     */
     private void btnVentasMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnVentasMouseEntered
 
         btnVentas.setBorder(bordeHover);
     }//GEN-LAST:event_btnVentasMouseEntered
-
+    /**
+     * Carga el panel de inventario.
+     */
     private void btnInvemtarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInvemtarioActionPerformed
 
         content.removeAll();
@@ -578,22 +634,27 @@ public class Principal extends javax.swing.JFrame {
         InsetarNuevoIcon("/resources_img/invtHeader.png");
     }//GEN-LAST:event_btnInvemtarioActionPerformed
 
-
+    /**
+     * Restaura el borde del botón "Inventario" al salir el cursor.
+     */
     private void btnInvemtarioMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnInvemtarioMouseExited
 
         btnInvemtario.setBorder(bordeNormal);
     }//GEN-LAST:event_btnInvemtarioMouseExited
-
+    /**
+     * Aplica borde resaltado al pasar el cursor sobre el botón "Inventario".
+     */
     private void btnInvemtarioMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnInvemtarioMouseEntered
 
         btnInvemtario.setBorder(bordeHover);
     }//GEN-LAST:event_btnInvemtarioMouseEntered
-
+    /**
+     * Carga el panel de proveedores.
+     */
     private void btnprovedoresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnprovedoresActionPerformed
 
-        proved.setSize(1366, 768);
-        proved.setLocation(0, 0);
-
+        //proved.setSize(1366, 768);
+        //proved.setLocation(0, 0);
         content.removeAll();
         content.add(proved, BorderLayout.CENTER);
         content.revalidate();
@@ -602,11 +663,15 @@ public class Principal extends javax.swing.JFrame {
         GettexIcon(btnprovedores);
         InsetarNuevoIcon("/resources_img/provedoresHeader.png");
     }//GEN-LAST:event_btnprovedoresActionPerformed
-
+    /**
+     * Restaura el borde del botón "Proveedores" al salir el cursor.
+     */
     private void btnprovedoresMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnprovedoresMouseExited
         btnprovedores.setBorder(bordeNormal);
     }//GEN-LAST:event_btnprovedoresMouseExited
-
+    /**
+     * Aplica borde resaltado al pasar el cursor sobre el botón "Proveedores".
+     */
     private void btnprovedoresMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnprovedoresMouseEntered
         btnprovedores.setBorder(bordeHover);
     }//GEN-LAST:event_btnprovedoresMouseEntered
@@ -617,7 +682,10 @@ public class Principal extends javax.swing.JFrame {
 
     private void cerrarSesionMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cerrarSesionMouseClicked
     }//GEN-LAST:event_cerrarSesionMouseClicked
-
+    /**
+     * Muestra un mensaje de confirmación y, si el usuario acepta, cierra sesión
+     * y vuelve al login.
+     */
     private void cerrarSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cerrarSesionActionPerformed
 
         int opcion = JOptionPane.showConfirmDialog(this, "¿Deseas cerrar sesión?", "Cerrar sesión", JOptionPane.YES_NO_OPTION);
@@ -627,9 +695,11 @@ public class Principal extends javax.swing.JFrame {
             login.setLocationRelativeTo(null);
             this.dispose();
         }
-
     }//GEN-LAST:event_cerrarSesionActionPerformed
-
+    /**
+     * Muestra el menú contextual del usuario al hacer clic en el botón de
+     * usuario.
+     */
     private void btnUsuarioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnUsuarioMouseClicked
 
         menuUsuario.show(btnUsuario, 0, btnUsuario.getHeight());
@@ -637,13 +707,17 @@ public class Principal extends javax.swing.JFrame {
     }//GEN-LAST:event_btnUsuarioMouseClicked
 
     private void PerfilMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PerfilMouseClicked
-//no
+
     }//GEN-LAST:event_PerfilMouseClicked
 
+    /**
+     * Carga el perfil del usuario actual en el contenedor principal.
+     */
     private void PerfilActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PerfilActionPerformed
+
         PerfilView perfil = new PerfilView(usuarioActual);
-        perfil.setSize(1366, 768);
-        perfil.setLocation(0, 0);
+        // perfil.setSize(1366, 768);
+        // perfil.setLocation(0, 0);
         content.removeAll(); // importante cuando se realizar cambios dinamincamente en los componentes dentro de un mismo panel
         content.add(perfil, BorderLayout.CENTER);
         content.revalidate(); // indica al panel que ha cambiado su contenido y necesita reiniciarse

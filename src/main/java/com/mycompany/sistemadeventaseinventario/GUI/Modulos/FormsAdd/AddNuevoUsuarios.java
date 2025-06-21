@@ -11,24 +11,35 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
 /**
+ * Formulario modal para registrar un nuevo usuario en el sistema.
+ *
+ * Esta clase extiende JDialog y muestra un formulario de ingreso con los datos
+ * básicos del nuevo usuario: nombres, apellidos, DNI, correo, contraseña y rol.
+ * Al completar todos los campos y presionar "Guardar", se valida la entrada y
+ * se registra el usuario en la base de datos usando la implementación del DAO.
  *
  * @author Frank
  */
 public class AddNuevoUsuarios extends javax.swing.JDialog {
 
+    /**
+     * Constructor del formulario para registrar un nuevo usuario.
+     *
+     * Inicializa los componentes del formulario y centra la ventana respecto a
+     * la ventana principal recibida.
+     *
+     * @param ventana Ventana principal del sistema que actúa como contenedor
+     * del formulario.
+     */
     public AddNuevoUsuarios(JFrame ventana) {
-
         super(ventana, "Datos del nuevo usuario", true);
         setLocationRelativeTo(ventana);
         initComponents();
     }
 
     //private void InitStyles() {
-
-        //setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-
+    //setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
     //}
-
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -48,7 +59,7 @@ public class AddNuevoUsuarios extends javax.swing.JDialog {
         txtDNI = new javax.swing.JTextField();
         jSeparator10 = new javax.swing.JSeparator();
         btnGuardar = new javax.swing.JButton();
-        jButton11 = new javax.swing.JButton();
+        btnCancelar = new javax.swing.JButton();
         jLabel27 = new javax.swing.JLabel();
         txtSApellido = new javax.swing.JTextField();
         jLabel28 = new javax.swing.JLabel();
@@ -116,16 +127,16 @@ public class AddNuevoUsuarios extends javax.swing.JDialog {
             }
         });
 
-        jButton11.setBackground(new java.awt.Color(108, 117, 125));
-        jButton11.setFont(new java.awt.Font("Roboto Black", 0, 12)); // NOI18N
-        jButton11.setForeground(new java.awt.Color(255, 255, 255));
-        jButton11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources_img/close_30dp_FFFFFF_FILL0_wght400_GRAD0_opsz24.png"))); // NOI18N
-        jButton11.setText("Cancelar");
-        jButton11.setBorder(null);
-        jButton11.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jButton11.addActionListener(new java.awt.event.ActionListener() {
+        btnCancelar.setBackground(new java.awt.Color(108, 117, 125));
+        btnCancelar.setFont(new java.awt.Font("Roboto Black", 0, 12)); // NOI18N
+        btnCancelar.setForeground(new java.awt.Color(255, 255, 255));
+        btnCancelar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources_img/close_30dp_FFFFFF_FILL0_wght400_GRAD0_opsz24.png"))); // NOI18N
+        btnCancelar.setText("Cancelar");
+        btnCancelar.setBorder(null);
+        btnCancelar.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        btnCancelar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton11ActionPerformed(evt);
+                btnCancelarActionPerformed(evt);
             }
         });
 
@@ -208,7 +219,7 @@ public class AddNuevoUsuarios extends javax.swing.JDialog {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(jPanel5Layout.createSequentialGroup()
                 .addGap(187, 187, 187)
-                .addComponent(jButton11, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(btnGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE))
@@ -251,7 +262,7 @@ public class AddNuevoUsuarios extends javax.swing.JDialog {
                 .addGap(23, 23, 23)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton11, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
 
@@ -269,14 +280,24 @@ public class AddNuevoUsuarios extends javax.swing.JDialog {
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
+     /**
+     * Cierra el formulario sin guardar datos.
+     */
+    private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
 
-    private void jButton11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton11ActionPerformed
-
-        this.dispose();
-    }//GEN-LAST:event_jButton11ActionPerformed
-
+        this.dispose();// Cierra la ventana
+    }//GEN-LAST:event_btnCancelarActionPerformed
+    /**
+     * Acción ejecutada al hacer clic en el botón "Guardar".
+     *
+     * Recoge los datos ingresados en el formulario. Si algún campo obligatorio
+     * está vacío, se muestra un mensaje de error. Si todo es válido, se crea un
+     * nuevo objeto Usuario y se registra en la base de datos mediante la
+     * interfaz DAOUsuarios.
+     */
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
 
+        // Captura de datos del formulario
         String Nombres, p_apellido, s_apellido, dni, correo, contrasenia, rol;
         Usuario user = new Usuario();
         Nombres = txtNombres.getText();
@@ -287,6 +308,7 @@ public class AddNuevoUsuarios extends javax.swing.JDialog {
         contrasenia = txtPassword.getText();
         rol = CbRol.getSelectedItem().toString();
 
+        // Validación de campos obligatorios
         if (Nombres.isEmpty() || p_apellido.isEmpty() || s_apellido.isEmpty() || dni.isEmpty() || contrasenia.isEmpty()) {
 
             JOptionPane.showMessageDialog(this, "Debe completar todos los campos",
@@ -296,6 +318,7 @@ public class AddNuevoUsuarios extends javax.swing.JDialog {
 
         } else {
 
+            // Asignación de valores al objeto Usuario
             user.setNombres(Nombres);
             user.setPrimer_apellido(p_apellido);
             user.setSegundo_apellido(s_apellido);
@@ -305,11 +328,12 @@ public class AddNuevoUsuarios extends javax.swing.JDialog {
             user.setRol(rol);
         }
 
+        // Registro en la base de datos
         try {
             DAOUsuarios dao = new DAOUsuariosImpl();
-            dao.registrar(user);
+            dao.registrar(user); // Guarda el nuevo usuario
             JOptionPane.showMessageDialog(this, "Nuevo usuario agregado correctamente", "Usuario agregado", JOptionPane.INFORMATION_MESSAGE);
-            this.dispose();
+            this.dispose();  // Cierra el formulario
 
         } catch (Exception e) {
             System.out.println(e.getMessage());
@@ -326,8 +350,8 @@ public class AddNuevoUsuarios extends javax.swing.JDialog {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox<String> CbRol;
+    private javax.swing.JButton btnCancelar;
     private javax.swing.JButton btnGuardar;
-    private javax.swing.JButton jButton11;
     private javax.swing.JLabel jLabel22;
     private javax.swing.JLabel jLabel24;
     private javax.swing.JLabel jLabel25;

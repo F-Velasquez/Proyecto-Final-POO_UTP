@@ -11,6 +11,13 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
 /**
+ * Diálogo modal para cambiar la contraseña del usuario actual.
+ *
+ * Esta clase extiende JDialog y permite al usuario visualizar su contraseña
+ * actual (solo lectura) e ingresar una nueva. Si la nueva contraseña es válida
+ * y diferente a la actual, se actualiza en la base de datos mediante el DAO.
+ *
+ * El formulario se muestra centrado respecto a la ventana principal.
  *
  * @author Frank
  */
@@ -18,12 +25,39 @@ public class AddNewPassword extends javax.swing.JDialog {
 
     private final Usuario usuarioActual;
 
+    /**
+     * Crea el diálogo para cambiar la contraseña de un usuario.
+     *
+     * @param ventana La ventana principal que actúa como contenedor del
+     * diálogo.
+     * @param usuarioActual El usuario que está autenticado actualmente y desea
+     * cambiar su contraseña.
+     */
     public AddNewPassword(JFrame ventana, Usuario usuarioActual) {
         super(ventana, "", true);
-        setLocationRelativeTo(ventana);
+        /**
+         * Constructor del formulario (JDialog) personalizado.
+         *
+         * Llama al constructor de la clase base JDialog con tres parámetros:
+         *
+         * @param owner La ventana padre (normalmente un JFrame) que invoca este
+         * diálogo. - Permite que el diálogo se posicione relativo a esta
+         * ventana. - Si el diálogo es modal, también bloquea la interacción con
+         * esta ventana hasta que se cierre.
+         *
+         * @param title El título del diálogo (aparece en la barra superior de
+         * la ventana). - Puede ser una cadena vacía ("") si no se desea mostrar
+         * un título.
+         *
+         * @param modal Define si el diálogo es modal o no. - true: El diálogo
+         * es modal (bloquea la ventana principal hasta cerrarse). - false: El
+         * diálogo es no modal (permite seguir usando la ventana principal
+         * mientras está abierto).
+         */
+        setLocationRelativeTo(ventana); // Centra el diálogo respecto a la ventana principal
         initComponents();
         this.usuarioActual = usuarioActual;
-        txtActual.setText(usuarioActual.getContrasenia());
+        txtActual.setText(usuarioActual.getContrasenia()); // Muestra la contraseña actual (modo lectura)
         txtNueva.requestFocus();
     }
 
@@ -134,7 +168,12 @@ public class AddNewPassword extends javax.swing.JDialog {
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
-
+    /**
+     * Valida que la nueva contraseña no esté vacía ni sea igual a la actual. Si
+     * es válida, se actualiza en la base de datos y en el objeto en memoria. Si
+     * ocurre un error, se muestra un mensaje al usuario.
+     *
+     */
     private void btnguardarPasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnguardarPasActionPerformed
 
         String actual = txtActual.getText();

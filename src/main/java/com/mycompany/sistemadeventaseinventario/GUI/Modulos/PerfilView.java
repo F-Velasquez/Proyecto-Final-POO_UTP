@@ -15,6 +15,7 @@ import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
 
 /**
+ * Clase para mostrar y manipular los datos de usuario en el panelContent
  *
  * @author Frank
  */
@@ -22,6 +23,12 @@ public class PerfilView extends javax.swing.JPanel {
 
     Usuario usuarioActual = null;
 
+    /**
+     * Constructor del panel de perfil del usuario. Inicializa los estilos y
+     * muestra los datos del usuario.
+     *
+     * @param user Usuario actual que ha iniciado sesión.
+     */
     public PerfilView(Usuario user) {
         this.usuarioActual = user;
         initComponents();
@@ -29,9 +36,16 @@ public class PerfilView extends javax.swing.JPanel {
         mostrardatosUser();
     }
 
+    /**
+     * Establecer el estilo visual del panel, incluyendo visibilidad de botones
+     * según el rol del usuario.
+     */
     private void initStyles() {
+
+        /* Inicializacion de la libreria flatlaf para los estilos del sistema  */
         FlatMTMaterialLighterIJTheme.setup();
 
+        /*Validacion para poder mostrar el boton de agregar un nuevo usuario*/
         if (usuarioActual.getRol().equalsIgnoreCase("admin")) {
             btnNuevoUsuario.setVisible(true);
         } else {
@@ -40,6 +54,10 @@ public class PerfilView extends javax.swing.JPanel {
 
     }
 
+    /**
+     * Muestra los datos del usuario actual en los campos de texto del
+     * formulario.
+     */
     private void mostrardatosUser() {
 
         txtnombre.setText(usuarioActual.getNombres());
@@ -314,33 +332,56 @@ public class PerfilView extends javax.swing.JPanel {
     private void txtdniActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtdniActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtdniActionPerformed
-
+    /**
+     * Muestra un formulario emergente para registrar un nuevo usuario. Visible
+     * solo si el usuario actual tiene rol de administrador.
+     */
     private void btnNuevoUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevoUsuarioActionPerformed
 
         JFrame principal = (JFrame) SwingUtilities.getWindowAncestor(this);
         AddNuevoUsuarios newUser = new AddNuevoUsuarios(principal);
         newUser.setVisible(true);
+        /**
+         * Obtiene la ventana principal que contiene este panel y muestra el
+         * formulario emergente para registrar un nuevo usuario.
+         *
+         * Este método obtiene la referencia al `JFrame` que actúa como
+         * contenedor del panel actual usando
+         * `SwingUtilities.getWindowAncestor(this)`, lo cual es necesario para
+         * que el nuevo formulario modal (`AddNuevoUsuarios`) se asocie
+         * correctamente a esa ventana principal.
+         *
+         * Luego, se crea una instancia de `AddNuevoUsuarios`, pasando esa
+         * ventana como parámetro, y se hace visible con `setVisible(true)`.
+         */
 
 
     }//GEN-LAST:event_btnNuevoUsuarioActionPerformed
-
+    /**
+     * Guarda los cambios realizados por el usuario en sus datos personales.
+     * Actualiza la información mediante la capa DAO. Muestra mensajes de éxito
+     * o error según corresponda.
+     */
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
 
         try {
-
+            // Obtener los nuevos valores del formulario
             String nuevoNombre = txtnombre.getText();
             String nuevoApellido1 = txtApellido1.getText();
             String nuevoApellido2 = txtApellido2.getText();
             String nuevoCorreo = txtcorreo.getText();
 
+            // Actualizar el objeto usuarioActual con los nuevos valores
             usuarioActual.setNombres(nuevoNombre);
             usuarioActual.setPrimer_apellido(nuevoApellido1);
             usuarioActual.setSegundo_apellido(nuevoApellido2);
             usuarioActual.setCorreo(nuevoCorreo);
 
+            // Actualizar en la base de datos
             DAOUsuarios dao = new DAOUsuariosImpl();
             dao.editar(usuarioActual);
 
+             // Confirmar actualización
             JOptionPane.showMessageDialog(this, "Datos actualizados", "Actualizacion de datos", JOptionPane.INFORMATION_MESSAGE);
 
         } catch (Exception e) {
@@ -349,7 +390,9 @@ public class PerfilView extends javax.swing.JPanel {
         }
 
     }//GEN-LAST:event_btnGuardarActionPerformed
-
+    /**
+     * Abre una ventana emergente para cambiar la contraseña del usuario actual.
+     */
     private void btnCambiarPasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCambiarPasActionPerformed
 
         JFrame principal = (JFrame) SwingUtilities.getWindowAncestor(this);
