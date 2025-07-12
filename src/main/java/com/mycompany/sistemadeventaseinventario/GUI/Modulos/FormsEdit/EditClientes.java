@@ -1,10 +1,9 @@
-package com.mycompany.sistemadeventaseinventario.GUI.Modulos.FormsAdd;
+package com.mycompany.sistemadeventaseinventario.GUI.Modulos.FormsEdit;
 
 import com.mycompany.sistemadeventaseinventario.GUI.Modulos.Clientes;
 import com.mycompany.sistemadeventaseinventario.Logic.Clases.Cliente;
 import com.mycompany.sistemadeventaseinventario.Persistence.DAO.DAOClientesImpl;
 import com.mycompany.sistemadeventaseinventario.Persistence.Interfaces.DAOClientes;
-import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
@@ -12,24 +11,29 @@ import javax.swing.JOptionPane;
  *
  * @author Frank
  */
-public class AddNuevoClientes extends JDialog {
+public class EditClientes extends javax.swing.JDialog {
 
+    DAOClientes daoc = new DAOClientesImpl();
     private final Clientes ventanaClientes;
-    DAOClientes daoclien = new DAOClientesImpl();
+    Cliente cl = new Cliente();
+    int id_client;
 
-    public AddNuevoClientes(JFrame ventana, Clientes ventClient) {
-
-        super(ventana, "Nuevo Cliente", true);
-        this.ventanaClientes = ventClient;
+    /**
+     * Creates new form EditClientes
+     *
+     * @param ventana
+     * @param VentClien
+     * @param cli
+     * @param id_cliente
+     */
+    public EditClientes(JFrame ventana, Clientes VentClien, Cliente cli, int id_cliente) {
+        super(ventana, "Editar Producto", true);
         setLocationRelativeTo(ventana);
+        this.ventanaClientes = VentClien;
+        this.cl = cli;
+        id_client = id_cliente;
         initComponents();
-
-    }
-
-    public void InitStyles() {
-
-        setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-
+        MostrarDatos();
     }
 
     /**
@@ -51,7 +55,7 @@ public class AddNuevoClientes extends JDialog {
         TxtEmail = new javax.swing.JTextField();
         jSeparator10 = new javax.swing.JSeparator();
         btnGuardar = new javax.swing.JButton();
-        jButton11 = new javax.swing.JButton();
+        btnCancelar = new javax.swing.JButton();
         jLabel27 = new javax.swing.JLabel();
         jScrollPane6 = new javax.swing.JScrollPane();
         txtDireccion = new javax.swing.JTextArea();
@@ -109,16 +113,16 @@ public class AddNuevoClientes extends JDialog {
             }
         });
 
-        jButton11.setBackground(new java.awt.Color(108, 117, 125));
-        jButton11.setFont(new java.awt.Font("Roboto Black", 0, 12)); // NOI18N
-        jButton11.setForeground(new java.awt.Color(255, 255, 255));
-        jButton11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources_img/close_30dp_FFFFFF_FILL0_wght400_GRAD0_opsz24.png"))); // NOI18N
-        jButton11.setText("Cancelar");
-        jButton11.setBorder(null);
-        jButton11.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jButton11.addActionListener(new java.awt.event.ActionListener() {
+        btnCancelar.setBackground(new java.awt.Color(108, 117, 125));
+        btnCancelar.setFont(new java.awt.Font("Roboto Black", 0, 12)); // NOI18N
+        btnCancelar.setForeground(new java.awt.Color(255, 255, 255));
+        btnCancelar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources_img/close_30dp_FFFFFF_FILL0_wght400_GRAD0_opsz24.png"))); // NOI18N
+        btnCancelar.setText("Cancelar");
+        btnCancelar.setBorder(null);
+        btnCancelar.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        btnCancelar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton11ActionPerformed(evt);
+                btnCancelarActionPerformed(evt);
             }
         });
 
@@ -153,30 +157,29 @@ public class AddNuevoClientes extends JDialog {
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jSeparator10, javax.swing.GroupLayout.Alignment.TRAILING)
             .addComponent(jSeparator9)
-            .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(jPanel5Layout.createSequentialGroup()
-                    .addGap(187, 187, 187)
-                    .addComponent(jButton11, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(18, 18, 18)
-                    .addComponent(btnGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGroup(jPanel5Layout.createSequentialGroup()
-                    .addGap(12, 12, 12)
+            .addGroup(jPanel5Layout.createSequentialGroup()
+                .addGap(187, 187, 187)
+                .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(btnGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(jPanel5Layout.createSequentialGroup()
+                .addGap(12, 12, 12)
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(TxtEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 411, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel28, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(TxtEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 411, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel28, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
-                                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                    .addComponent(jLabel24, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 212, Short.MAX_VALUE)
-                                    .addComponent(jLabel25, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                .addGap(212, 212, 212))
-                            .addComponent(jLabel27, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
                             .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addComponent(jScrollPane6, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 411, Short.MAX_VALUE)
-                                .addComponent(txtNombres, javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(txtDNI, javax.swing.GroupLayout.Alignment.LEADING))
-                            .addComponent(jLabel22, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addComponent(txtTelefono))))
+                                .addComponent(jLabel24, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 212, Short.MAX_VALUE)
+                                .addComponent(jLabel25, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addGap(212, 212, 212))
+                        .addComponent(jLabel27, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(jScrollPane6, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 411, Short.MAX_VALUE)
+                            .addComponent(txtNombres, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtDNI, javax.swing.GroupLayout.Alignment.LEADING))
+                        .addComponent(jLabel22, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtTelefono)))
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -208,7 +211,7 @@ public class AddNuevoClientes extends JDialog {
                 .addGap(48, 48, 48)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton11, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
 
@@ -226,11 +229,6 @@ public class AddNuevoClientes extends JDialog {
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
-
-    private void jButton11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton11ActionPerformed
-
-        this.dispose();
-    }//GEN-LAST:event_jButton11ActionPerformed
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
 
@@ -250,16 +248,15 @@ public class AddNuevoClientes extends JDialog {
 
         try {
 
-            Cliente cliente = new Cliente();
-            cliente.setNombres(Nombres);
-            cliente.setDNI(DNI);
-            cliente.setTelefono(Telefono);
-            cliente.setEmail(Email);
-            cliente.setDireccion(Direccion);
+            Cliente NuevoCliente = new Cliente();
+            NuevoCliente.setNombres(Nombres);
+            NuevoCliente.setDNI(DNI);
+            NuevoCliente.setTelefono(Telefono);
+            NuevoCliente.setEmail(Email);
+            NuevoCliente.setDireccion(Direccion);
 
-            daoclien.registrar(cliente);
-
-            JOptionPane.showMessageDialog(this, "Nuevo cliente agregado", "", JOptionPane.INFORMATION_MESSAGE);
+            daoc.Editar(id_client, NuevoCliente);
+            JOptionPane.showMessageDialog(this, "Cliente modificado", "", JOptionPane.INFORMATION_MESSAGE);
             this.dispose();
             ventanaClientes.cargarTablaClientes();
 
@@ -268,14 +265,26 @@ public class AddNuevoClientes extends JDialog {
             System.out.println(e.getMessage());
         }
 
-
     }//GEN-LAST:event_btnGuardarActionPerformed
 
+    private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
+
+        this.dispose();
+    }//GEN-LAST:event_btnCancelarActionPerformed
+    private void MostrarDatos() {
+
+        txtNombres.setText(cl.getNombres());
+        txtDNI.setText(cl.getDNI());
+        txtTelefono.setText(cl.getTelefono());
+        TxtEmail.setText(cl.getEmail());
+        txtDireccion.setText(cl.getDireccion());
+
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField TxtEmail;
+    private javax.swing.JButton btnCancelar;
     private javax.swing.JButton btnGuardar;
-    private javax.swing.JButton jButton11;
     private javax.swing.JLabel jLabel22;
     private javax.swing.JLabel jLabel24;
     private javax.swing.JLabel jLabel25;
@@ -290,4 +299,5 @@ public class AddNuevoClientes extends JDialog {
     private javax.swing.JTextField txtNombres;
     private javax.swing.JTextField txtTelefono;
     // End of variables declaration//GEN-END:variables
+
 }

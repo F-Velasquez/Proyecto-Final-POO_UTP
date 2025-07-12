@@ -1,10 +1,13 @@
-package com.mycompany.sistemadeventaseinventario.GUI.Modulos.FormsAdd;
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JDialog.java to edit this template
+ */
+package com.mycompany.sistemadeventaseinventario.GUI.Modulos.FormsEdit;
 
 import com.mycompany.sistemadeventaseinventario.GUI.Modulos.Provedores;
 import com.mycompany.sistemadeventaseinventario.Logic.Clases.Proveedor;
 import com.mycompany.sistemadeventaseinventario.Persistence.DAO.DAOProveedoresImpl;
 import com.mycompany.sistemadeventaseinventario.Persistence.Interfaces.DAOProveedores;
-import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
@@ -12,20 +15,20 @@ import javax.swing.JOptionPane;
  *
  * @author Frank
  */
-public final class AddNuevoProveedor extends JDialog {
+public class EditProveedor extends javax.swing.JDialog {
 
-    private final Provedores VentanaProveedores;
     DAOProveedores daoP = new DAOProveedoresImpl();
+    private final Provedores VentanaProveedores;
+    Proveedor proved = new Proveedor();
+    int idProveedor;
 
-    public AddNuevoProveedor(JFrame ventana, Provedores ventanaprov) {
-        super(ventana, "Nuevo Proveedor", true);
-        this.VentanaProveedores = ventanaprov;
-        setLocationRelativeTo(ventana);
+    public EditProveedor(JFrame ventana, Provedores ventProv, Proveedor prove, int id_proveedor) {
+        super(ventana, "Editar Proveedor", true);
+        this.VentanaProveedores = ventProv;
+        proved = prove;
+        id_proveedor = idProveedor;
         initComponents();
-    }
-
-    public void InitStyles() {
-        setDefaultCloseOperation(JDialog.EXIT_ON_CLOSE);
+        MostrarDatos();
     }
 
     /**
@@ -56,6 +59,8 @@ public final class AddNuevoProveedor extends JDialog {
         jLabel9 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
         txtDireccion = new javax.swing.JTextArea();
+
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jPanel1.setBackground(new java.awt.Color(242, 242, 242));
 
@@ -247,11 +252,6 @@ public final class AddNuevoProveedor extends JDialog {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
-
-        this.dispose();
-    }//GEN-LAST:event_btnCancelarActionPerformed
-
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
 
         String Empresa, Contacto, Telefono, Email, ProdSuministrados, Direccion;
@@ -279,17 +279,31 @@ public final class AddNuevoProveedor extends JDialog {
             prov.setProdSuministrados(ProdSuministrados);
             prov.setDireccion(Direccion);
 
-            daoP.registrar(prov);
-            JOptionPane.showMessageDialog(this, "Nuevo proveedor agregado", "", JOptionPane.INFORMATION_MESSAGE);
+            daoP.Editar(prov, idProveedor);
+            JOptionPane.showMessageDialog(this, "Ciente modificado", "", JOptionPane.INFORMATION_MESSAGE);
             this.dispose();
             VentanaProveedores.cargarTabla();
 
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
-
     }//GEN-LAST:event_btnGuardarActionPerformed
 
+    private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
+
+        this.dispose();
+    }//GEN-LAST:event_btnCancelarActionPerformed
+
+    private void MostrarDatos() {
+
+        txtEmpresa.setText(proved.getEmpresa());
+        txtContacto.setText(proved.getContacto());
+        txtTelefono.setText(proved.getTelefono());
+        txtEmail.setText(proved.getEmail());
+        txtProductosSum.setText(proved.getProdSuministrados());
+        txtDireccion.setText(proved.getDireccion());
+
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCancelar;
@@ -312,4 +326,5 @@ public final class AddNuevoProveedor extends JDialog {
     private javax.swing.JTextArea txtProductosSum;
     private javax.swing.JTextField txtTelefono;
     // End of variables declaration//GEN-END:variables
+
 }

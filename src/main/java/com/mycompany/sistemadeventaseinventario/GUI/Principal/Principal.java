@@ -60,6 +60,7 @@ public class Principal extends javax.swing.JFrame {
 
         //Abrir la pantalla principal en pantalla completa
         this.setExtendedState(JFrame.MAXIMIZED_BOTH);
+        
 
         content.removeAll(); // importante cuando se realizar cambios dinamincamente en los componentes dentro de un mismo panel
         content.add(ini, BorderLayout.CENTER);
@@ -146,7 +147,7 @@ public class Principal extends javax.swing.JFrame {
         btnReportes = new javax.swing.JButton();
         btnInicio = new javax.swing.JButton();
         EncabezadoPanel = new javax.swing.JPanel();
-        jLabel2 = new javax.swing.JLabel();
+        lbFrase = new javax.swing.JLabel();
         btnUsuario = new javax.swing.JButton();
         content = new javax.swing.JPanel();
         txtHeadder = new javax.swing.JLabel();
@@ -400,9 +401,9 @@ public class Principal extends javax.swing.JFrame {
         EncabezadoPanel.setBackground(new java.awt.Color(255, 255, 255));
         EncabezadoPanel.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(233, 234, 235), 2));
 
-        jLabel2.setFont(new java.awt.Font("Roboto Condensed Medium", 0, 14)); // NOI18N
-        jLabel2.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel2.setText("\"Cree en tu visión, trabaja con pasión y cada paso te acercará al éxito que soñaste.\"");
+        lbFrase.setFont(new java.awt.Font("Roboto Condensed Medium", 0, 14)); // NOI18N
+        lbFrase.setForeground(new java.awt.Color(0, 0, 0));
+        lbFrase.setText("\"Cree en tu visión, trabaja con pasión y cada paso te acercará al éxito que soñaste.\"");
 
         btnUsuario.setBackground(new java.awt.Color(243, 255, 255));
         btnUsuario.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
@@ -426,7 +427,7 @@ public class Principal extends javax.swing.JFrame {
             EncabezadoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, EncabezadoPanelLayout.createSequentialGroup()
                 .addGap(87, 87, 87)
-                .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(lbFrase, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGap(76, 76, 76)
                 .addComponent(btnUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(14, 14, 14))
@@ -435,7 +436,7 @@ public class Principal extends javax.swing.JFrame {
             EncabezadoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, EncabezadoPanelLayout.createSequentialGroup()
                 .addGap(22, 22, 22)
-                .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(lbFrase, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGap(25, 25, 25))
             .addGroup(EncabezadoPanelLayout.createSequentialGroup()
                 .addGap(14, 14, 14)
@@ -745,12 +746,12 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JButton btnprovedores;
     private javax.swing.JMenuItem cerrarSesion;
     private javax.swing.JPanel content;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JPopupMenu.Separator jSeparator2;
+    private javax.swing.JLabel lbFrase;
     private javax.swing.JPopupMenu menuUsuario;
     private javax.swing.JLabel txtHeadder;
     // End of variables declaration//GEN-END:variables

@@ -353,7 +353,7 @@ public final class AddProductoVentana extends JDialog {
             ventanaInventario.CargarTablaInventario();
 
         } catch (Exception e) {
-            e.getMessage();
+            System.out.println(e.getMessage());
         }
     }//GEN-LAST:event_btnGuardarActionPerformed
 

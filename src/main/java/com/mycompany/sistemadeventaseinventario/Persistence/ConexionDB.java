@@ -12,7 +12,7 @@ public class ConexionDB {
 
     protected Connection conectar = null;
     String user = "fvelasquezl";
-    String pasword = "root123";
+    String pasword = "admin123";
     String ip = "localhost";
     String puerto = "1433";
     String database = "DbSistemaDeVentas";

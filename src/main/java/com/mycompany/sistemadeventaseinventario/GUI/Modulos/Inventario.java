@@ -229,7 +229,7 @@ public class Inventario extends javax.swing.JPanel {
 
         if (filasSelec.length == 1 || filasSelec.length > 1) {
             DAOProducto daoEliminar = new DAOProductoImpl();
-            int opcion = JOptionPane.showConfirmDialog(this, "Seguro que desea eliminar este producto", "", JOptionPane.YES_NO_OPTION);
+            int opcion = JOptionPane.showConfirmDialog(this, "Seguro que deseas eliminar ", "", JOptionPane.YES_NO_OPTION);
             if (opcion == JOptionPane.YES_OPTION) {
 
                 for (int i : TbListaProductos.getSelectedRows()) {
@@ -264,7 +264,7 @@ public class Inventario extends javax.swing.JPanel {
     }//GEN-LAST:event_btnAgregarProductoActionPerformed
 
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
-        Producto ProductoActual = null;
+        //Producto ProductoActual = null;
         int[] filasSeleccionadas = TbListaProductos.getSelectedRows();
 
         if (filasSeleccionadas.length == 1) {
@@ -391,7 +391,6 @@ public class Inventario extends javax.swing.JPanel {
         //
         TbListaProductos.setModel(tablaInventario);
 
-        TbListaProductos.getTableHeader()
-                .setReorderingAllowed(false);
+        TbListaProductos.getTableHeader().setReorderingAllowed(false);
     }
 }

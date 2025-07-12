@@ -7,6 +7,8 @@ public class Proveedor {
     private String Contacto;
     private String Telefono;
     private String Email;
+    private String ProdSuministrados;
+    private String Direccion;
 
     public int getId_proveedor() {
         return id_proveedor;
@@ -46,6 +48,22 @@ public class Proveedor {
 
     public void setEmail(String Email) {
         this.Email = Email;
+    }
+
+    public String getProdSuministrados() {
+        return ProdSuministrados;
+    }
+
+    public void setProdSuministrados(String ProdSuministrados) {
+        this.ProdSuministrados = ProdSuministrados;
+    }
+
+    public String getDireccion() {
+        return Direccion;
+    }
+
+    public void setDireccion(String Direccion) {
+        this.Direccion = Direccion;
     }
 
     @Override

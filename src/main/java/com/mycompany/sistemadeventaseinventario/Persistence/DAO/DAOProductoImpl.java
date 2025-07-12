@@ -26,6 +26,7 @@ public class DAOProductoImpl extends ConexionDB implements DAOProducto {
             st.setString(6, product.getObservacion());
             st.setInt(7, proveed.getId_proveedor());
             st.executeUpdate();
+
         } catch (SQLException e) {
             throw e;
         } finally {
@@ -52,6 +53,7 @@ public class DAOProductoImpl extends ConexionDB implements DAOProducto {
             st.executeUpdate();
         } catch (SQLException e) {
         } finally {
+            this.cerrarConexionDB();
         }
 
     }
@@ -80,7 +82,6 @@ public class DAOProductoImpl extends ConexionDB implements DAOProducto {
 
         try {
             this.establecerConexionDB();
-            
 
             PreparedStatement st = this.conectar.prepareStatement("SELECT * FROM Productos");
             ResultSet rs = st.executeQuery();
