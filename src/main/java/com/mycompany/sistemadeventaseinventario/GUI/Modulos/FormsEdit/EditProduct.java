@@ -330,9 +330,8 @@ public class EditProduct extends javax.swing.JDialog {
             NuevoProd.setMarca(marca);
             NuevoProd.setStock(stock);
             NuevoProd.setPrecio(precio);
-            NuevoProd.setNameProveedor(proveedor);
             NuevoProd.setObservacion(observaciones);
-            NuevoProd.setId_proovedor(prov);
+            NuevoProd.setProovedor(prov);
 
             DAOProducto daoProd = new DAOProductoImpl();
             daoProd.Editar(Id_producto, NuevoProd, prov);
@@ -340,7 +339,7 @@ public class EditProduct extends javax.swing.JDialog {
             ventanaInventario.CargarTablaInventario();
             this.dispose();
         } catch (Exception e) {
-            e.getMessage();
+            JOptionPane.showMessageDialog(this, "Ocurrió un error al actualizar: " + e.getMessage(), "Error de Base de Datos", JOptionPane.ERROR_MESSAGE);
         }
 
     }//GEN-LAST:event_btnGuardarEditActionPerformed

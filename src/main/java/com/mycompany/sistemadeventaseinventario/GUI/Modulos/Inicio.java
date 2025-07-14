@@ -4,6 +4,9 @@
  */
 package com.mycompany.sistemadeventaseinventario.GUI.Modulos;
 
+import com.mycompany.sistemadeventaseinventario.Persistence.DAO.DAOProductoImpl;
+import com.mycompany.sistemadeventaseinventario.Persistence.Interfaces.DAOProducto;
+import java.util.List;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -11,6 +14,8 @@ import javax.swing.table.DefaultTableModel;
  * @author Frank
  */
 public class Inicio extends javax.swing.JPanel {
+
+    private DAOProducto daoProducto = new DAOProductoImpl();
 
     /**
      * Creates new form Inicio
@@ -44,13 +49,45 @@ public class Inicio extends javax.swing.JPanel {
 
         String titulos[] = {"Codigo", "Producto", "Stock actual"};
         tab1.setColumnIdentifiers(titulos);
-        tb1.setModel(tab1);
-        tb1.getTableHeader().setReorderingAllowed(false);
+        tbprodBajosStock.setModel(tab1);
+        tbprodBajosStock.getTableHeader().setReorderingAllowed(false);
         String titulos2[] = {"Codigo", "Producto", "Cantidad Vendida"};
         tab2.setColumnIdentifiers(titulos2);
-        tb2.setModel(tab2);
-        tb2.getTableHeader().setReorderingAllowed(false);
+        tbProductosMasVendidos.setModel(tab2);
+        tbProductosMasVendidos.getTableHeader().setReorderingAllowed(false);
 
+        cargarTablaBajoStock();
+        cargarTablaMasVendidos();
+
+    }
+
+    private void cargarTablaBajoStock() {
+        DefaultTableModel modelo = (DefaultTableModel) tbprodBajosStock.getModel();
+        modelo.setRowCount(0); // Limpia la tabla de datos anteriores.
+
+        try {
+            List<Object[]> lista = daoProducto.listarBajoStock();
+            for (Object[] fila : lista) {
+                modelo.addRow(fila);
+            }
+        } catch (Exception e) {
+            System.err.println("Error al cargar productos con bajo stock: " + e.getMessage());
+        }
+    }
+
+    private void cargarTablaMasVendidos() {
+        DefaultTableModel modelo = (DefaultTableModel) tbProductosMasVendidos.getModel();
+        modelo.setRowCount(0); // Limpia la tabla de datos anteriores.
+
+        try {
+            // Se mostrará el TOP 5 de los más vendidos.
+            List<Object[]> lista = daoProducto.listarMasVendidos();
+            for (Object[] fila : lista) {
+                modelo.addRow(fila);
+            }
+        } catch (Exception e) {
+            System.err.println("Error al cargar productos más vendidos: " + e.getMessage());
+        }
     }
 
     /**
@@ -65,17 +102,17 @@ public class Inicio extends javax.swing.JPanel {
         InicioPanel = new javax.swing.JPanel();
         jSeparator1 = new javax.swing.JSeparator();
         jScrollPane2 = new javax.swing.JScrollPane();
-        tb2 = new javax.swing.JTable();
+        tbProductosMasVendidos = new javax.swing.JTable();
         jScrollPane3 = new javax.swing.JScrollPane();
-        tb1 = new javax.swing.JTable();
-        btnProdMasVend = new javax.swing.JButton();
-        btnProdBajS = new javax.swing.JButton();
+        tbprodBajosStock = new javax.swing.JTable();
+        lblProductosMasVendidos = new javax.swing.JButton();
+        lblProdBajS = new javax.swing.JButton();
 
         InicioPanel.setBackground(new java.awt.Color(255, 255, 255));
         InicioPanel.setMaximumSize(new java.awt.Dimension(2147483647, 2147483647));
         InicioPanel.setPreferredSize(new java.awt.Dimension(830, 423));
 
-        tb2.setModel(new javax.swing.table.DefaultTableModel(
+        tbProductosMasVendidos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {},
                 {},
@@ -86,9 +123,9 @@ public class Inicio extends javax.swing.JPanel {
 
             }
         ));
-        jScrollPane2.setViewportView(tb2);
+        jScrollPane2.setViewportView(tbProductosMasVendidos);
 
-        tb1.setModel(new javax.swing.table.DefaultTableModel(
+        tbprodBajosStock.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {},
                 {},
@@ -99,54 +136,54 @@ public class Inicio extends javax.swing.JPanel {
 
             }
         ));
-        jScrollPane3.setViewportView(tb1);
+        jScrollPane3.setViewportView(tbprodBajosStock);
 
-        btnProdMasVend.setBackground(new java.awt.Color(255, 255, 255));
-        btnProdMasVend.setFont(new java.awt.Font("Roboto Medium", 0, 24)); // NOI18N
-        btnProdMasVend.setForeground(new java.awt.Color(153, 255, 153));
-        btnProdMasVend.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources_img/dinero.png"))); // NOI18N
-        btnProdMasVend.setText("Productos más vendidos");
-        btnProdMasVend.setBorder(null);
-        btnProdMasVend.setIconTextGap(15);
-        btnProdMasVend.addMouseListener(new java.awt.event.MouseAdapter() {
+        lblProductosMasVendidos.setBackground(new java.awt.Color(255, 255, 255));
+        lblProductosMasVendidos.setFont(new java.awt.Font("Roboto Medium", 0, 24)); // NOI18N
+        lblProductosMasVendidos.setForeground(new java.awt.Color(153, 255, 153));
+        lblProductosMasVendidos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources_img/dinero.png"))); // NOI18N
+        lblProductosMasVendidos.setText("Productos más vendidos");
+        lblProductosMasVendidos.setBorder(null);
+        lblProductosMasVendidos.setIconTextGap(15);
+        lblProductosMasVendidos.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btnProdMasVendMouseClicked(evt);
+                lblProductosMasVendidosMouseClicked(evt);
             }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
-                btnProdMasVendMouseEntered(evt);
+                lblProductosMasVendidosMouseEntered(evt);
             }
             public void mouseExited(java.awt.event.MouseEvent evt) {
-                btnProdMasVendMouseExited(evt);
+                lblProductosMasVendidosMouseExited(evt);
             }
         });
-        btnProdMasVend.addActionListener(new java.awt.event.ActionListener() {
+        lblProductosMasVendidos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnProdMasVendActionPerformed(evt);
+                lblProductosMasVendidosActionPerformed(evt);
             }
         });
 
-        btnProdBajS.setBackground(new java.awt.Color(255, 255, 255));
-        btnProdBajS.setFont(new java.awt.Font("Roboto Medium", 0, 24)); // NOI18N
-        btnProdBajS.setForeground(new java.awt.Color(255, 102, 102));
-        btnProdBajS.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources_img/advertencia (1).png"))); // NOI18N
-        btnProdBajS.setText("Productos con bajo stock !!");
-        btnProdBajS.setBorder(null);
-        btnProdBajS.setIconTextGap(15);
-        btnProdBajS.setMargin(new java.awt.Insets(10, 14, 10, 14));
-        btnProdBajS.addMouseListener(new java.awt.event.MouseAdapter() {
+        lblProdBajS.setBackground(new java.awt.Color(255, 255, 255));
+        lblProdBajS.setFont(new java.awt.Font("Roboto Medium", 0, 24)); // NOI18N
+        lblProdBajS.setForeground(new java.awt.Color(255, 102, 102));
+        lblProdBajS.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources_img/advertencia (1).png"))); // NOI18N
+        lblProdBajS.setText("Productos con bajo stock !!");
+        lblProdBajS.setBorder(null);
+        lblProdBajS.setIconTextGap(15);
+        lblProdBajS.setMargin(new java.awt.Insets(10, 14, 10, 14));
+        lblProdBajS.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btnProdBajSMouseClicked(evt);
+                lblProdBajSMouseClicked(evt);
             }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
-                btnProdBajSMouseEntered(evt);
+                lblProdBajSMouseEntered(evt);
             }
             public void mouseExited(java.awt.event.MouseEvent evt) {
-                btnProdBajSMouseExited(evt);
+                lblProdBajSMouseExited(evt);
             }
         });
-        btnProdBajS.addActionListener(new java.awt.event.ActionListener() {
+        lblProdBajS.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnProdBajSActionPerformed(evt);
+                lblProdBajSActionPerformed(evt);
             }
         });
 
@@ -161,9 +198,9 @@ public class Inicio extends javax.swing.JPanel {
                         .addGroup(InicioPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(InicioPanelLayout.createSequentialGroup()
                                 .addGap(6, 6, 6)
-                                .addComponent(btnProdBajS, javax.swing.GroupLayout.DEFAULT_SIZE, 380, Short.MAX_VALUE)
+                                .addComponent(lblProdBajS, javax.swing.GroupLayout.DEFAULT_SIZE, 380, Short.MAX_VALUE)
                                 .addGap(28, 28, 28)
-                                .addComponent(btnProdMasVend, javax.swing.GroupLayout.DEFAULT_SIZE, 390, Short.MAX_VALUE))
+                                .addComponent(lblProductosMasVendidos, javax.swing.GroupLayout.DEFAULT_SIZE, 390, Short.MAX_VALUE))
                             .addGroup(InicioPanelLayout.createSequentialGroup()
                                 .addGap(4, 4, 4)
                                 .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
@@ -181,8 +218,8 @@ public class Inicio extends javax.swing.JPanel {
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(InicioPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnProdBajS)
-                    .addComponent(btnProdMasVend, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(lblProdBajS)
+                    .addComponent(lblProductosMasVendidos, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(InicioPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 295, Short.MAX_VALUE)
@@ -202,46 +239,46 @@ public class Inicio extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnProdMasVendMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnProdMasVendMouseClicked
+    private void lblProductosMasVendidosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblProductosMasVendidosMouseClicked
         // TODO add your handling code here:
-    }//GEN-LAST:event_btnProdMasVendMouseClicked
+    }//GEN-LAST:event_lblProductosMasVendidosMouseClicked
 
-    private void btnProdMasVendMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnProdMasVendMouseEntered
-    }//GEN-LAST:event_btnProdMasVendMouseEntered
+    private void lblProductosMasVendidosMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblProductosMasVendidosMouseEntered
+    }//GEN-LAST:event_lblProductosMasVendidosMouseEntered
 
-    private void btnProdMasVendMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnProdMasVendMouseExited
-    }//GEN-LAST:event_btnProdMasVendMouseExited
+    private void lblProductosMasVendidosMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblProductosMasVendidosMouseExited
+    }//GEN-LAST:event_lblProductosMasVendidosMouseExited
 
-    private void btnProdMasVendActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnProdMasVendActionPerformed
+    private void lblProductosMasVendidosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_lblProductosMasVendidosActionPerformed
 
 
-    }//GEN-LAST:event_btnProdMasVendActionPerformed
+    }//GEN-LAST:event_lblProductosMasVendidosActionPerformed
 
-    private void btnProdBajSMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnProdBajSMouseClicked
+    private void lblProdBajSMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblProdBajSMouseClicked
         // TODO add your handling code here:
-    }//GEN-LAST:event_btnProdBajSMouseClicked
+    }//GEN-LAST:event_lblProdBajSMouseClicked
 
-    private void btnProdBajSMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnProdBajSMouseEntered
+    private void lblProdBajSMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblProdBajSMouseEntered
         // TODO add your handling code here:
-    }//GEN-LAST:event_btnProdBajSMouseEntered
+    }//GEN-LAST:event_lblProdBajSMouseEntered
 
-    private void btnProdBajSMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnProdBajSMouseExited
+    private void lblProdBajSMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblProdBajSMouseExited
         // TODO add your handling code here:
-    }//GEN-LAST:event_btnProdBajSMouseExited
+    }//GEN-LAST:event_lblProdBajSMouseExited
 
-    private void btnProdBajSActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnProdBajSActionPerformed
+    private void lblProdBajSActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_lblProdBajSActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_btnProdBajSActionPerformed
+    }//GEN-LAST:event_lblProdBajSActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel InicioPanel;
-    private javax.swing.JButton btnProdBajS;
-    private javax.swing.JButton btnProdMasVend;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JSeparator jSeparator1;
-    private javax.swing.JTable tb1;
-    private javax.swing.JTable tb2;
+    private javax.swing.JButton lblProdBajS;
+    private javax.swing.JButton lblProductosMasVendidos;
+    private javax.swing.JTable tbProductosMasVendidos;
+    private javax.swing.JTable tbprodBajosStock;
     // End of variables declaration//GEN-END:variables
 }

@@ -313,25 +313,48 @@ public final class AddProductoVentana extends JDialog {
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
 
-        String nombre, marca, proveedor, observaciones;
+        String nombre, marca, observaciones;//proveedor
         int id_proveedor, stock;
         double precio;
         Proveedor prov = new Proveedor();
 
-        if (txtnombre.getText().isEmpty() || txtMarca.getText().isEmpty() || txtPrecio.getText().isEmpty() || txtStock.getText().isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Debe completar los campos", "ERROR", JOptionPane.ERROR_MESSAGE);
-            return;
+        // VALIDACIÓN DE CAMPOS VACIOS  ---
+        if (txtnombre.getText().trim().isEmpty() || txtMarca.getText().trim().isEmpty()
+                || txtPrecio.getText().trim().isEmpty() || txtStock.getText().trim().isEmpty()
+                || txtIdProveedor.getText().trim().isEmpty()) {
+
+            JOptionPane.showMessageDialog(this, "Debe completar todos los campos obligatorios.", "Campos incompletos", JOptionPane.WARNING_MESSAGE);
+            return; // Detiene la ejecución si algo está vacío.
         }
 
-        nombre = txtnombre.getText();
-        marca = txtMarca.getText();
-        proveedor = CBProveedores.getSelectedItem().toString();
-        observaciones = txaObservaciones.getText();
-        id_proveedor = Integer.parseInt(txtIdProveedor.getText());
-        stock = Integer.parseInt(txtStock.getText());
-        precio = Double.parseDouble(txtPrecio.getText());
+        // --- PASO 2: VALIDACIÓN NUMÉRICA Y OBTENCIÓN DE DATOS (LA PARTE NUEVA) ---
+        try {
+            // Intentamos convertir todos los campos numéricos.
+            id_proveedor = Integer.parseInt(txtIdProveedor.getText().trim());
+            stock = Integer.parseInt(txtStock.getText().trim());
+            precio = Double.parseDouble(txtPrecio.getText().trim());
+
+            // Opcional pero recomendado: Validar que los números no sean negativos.
+            if (stock < 0 || precio < 0) {
+                JOptionPane.showMessageDialog(this, "El stock y el precio no pueden ser negativos.", "Valores inválidos", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+
+        } catch (NumberFormatException e) {
+            // Si alguna de las conversiones (parseInt, parseDouble) falla, atrapamos el error.
+            JOptionPane.showMessageDialog(this, "Por favor, ingrese solo números en los campos 'ID Proveedor', 'Stock' y 'Precio'.", "Error de Formato", JOptionPane.ERROR_MESSAGE);
+            return; // Detiene la ejecución.
+        }
 
         try {
+
+            nombre = txtnombre.getText().trim();
+            marca = txtMarca.getText().trim();
+            //proveedor = CBProveedores.getSelectedItem().toString();
+            observaciones = txaObservaciones.getText().trim();
+            id_proveedor = Integer.parseInt(txtIdProveedor.getText().trim());
+            stock = Integer.parseInt(txtStock.getText().trim());
+            precio = Double.parseDouble(txtPrecio.getText().trim());
 
             DAOProveedores daoprov = new DAOProveedoresImpl();
             prov = daoprov.traerProveedor(id_proveedor);
@@ -341,9 +364,8 @@ public final class AddProductoVentana extends JDialog {
             product.setMarca(marca);
             product.setStock(stock);
             product.setPrecio(precio);
-            product.setNameProveedor(proveedor);
             product.setObservacion(observaciones);
-            product.setId_proovedor(prov);
+            product.setProovedor(prov);
 
             DAOProducto daop = new DAOProductoImpl();
             daop.registrar(product, prov);

@@ -11,9 +11,8 @@ public class Producto {
     private String Marca;
     private int Stock;
     private double Precio;
-    private String NameProveedor;
     private String Observacion;
-    private Proveedor id_proovedor;
+    private Proveedor proovedor;
 
     public int getId_producto() {
         return Id_producto;
@@ -55,14 +54,6 @@ public class Producto {
         this.Precio = Precio;
     }
 
-    public String getNameProveedor() {
-        return NameProveedor;
-    }
-
-    public void setNameProveedor(String NameProveedor) {
-        this.NameProveedor = NameProveedor;
-    }
-
     public String getObservacion() {
         return Observacion;
     }
@@ -71,12 +62,15 @@ public class Producto {
         this.Observacion = Observacion;
     }
 
-    public Proveedor getId_proovedor() {
-        return id_proovedor;
+    public Proveedor getProovedor() {
+        return proovedor;
     }
 
-    public void setId_proovedor(Proveedor id_proovedor) {
-        this.id_proovedor = id_proovedor;
+    public void setProovedor(Proveedor proovedor) {
+        this.proovedor = proovedor;
     }
+
+
+
 
 }

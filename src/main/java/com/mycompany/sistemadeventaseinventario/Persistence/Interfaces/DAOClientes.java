@@ -19,5 +19,7 @@ public interface DAOClientes {
     public List<Cliente> listarClientes() throws Exception;
 
     public List<Cliente> BuscarClientes(String DNI) throws Exception;
+    
+    public Cliente buscarPorDNI(String DNI) throws Exception;
 
 }

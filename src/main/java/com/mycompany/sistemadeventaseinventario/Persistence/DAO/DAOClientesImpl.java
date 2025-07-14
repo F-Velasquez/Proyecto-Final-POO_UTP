@@ -19,8 +19,8 @@ public class DAOClientesImpl extends ConexionDB implements DAOClientes {
     public void registrar(Cliente cliente) throws Exception {
 
         try {
-
             this.establecerConexionDB();
+
             PreparedStatement ps = this.conectar.prepareStatement("INSERT INTO Clientes(Nombres,Telefono,Email,Direccion,DNI) VALUES(?,?,?,?,?)");
             ps.setString(1, cliente.getNombres());
             ps.setString(2, cliente.getTelefono());
@@ -32,7 +32,6 @@ public class DAOClientesImpl extends ConexionDB implements DAOClientes {
         } catch (SQLException e) {
             throw e;
         } finally {
-
             this.cerrarConexionDB();
         }
 
@@ -87,6 +86,7 @@ public class DAOClientesImpl extends ConexionDB implements DAOClientes {
 
             PreparedStatement st = this.conectar.prepareStatement("select * from Clientes");
             ResultSet rs = st.executeQuery();
+            
 
             while (rs.next()) {
 
@@ -136,6 +136,7 @@ public class DAOClientesImpl extends ConexionDB implements DAOClientes {
             }
 
         } catch (SQLException e) {
+            throw e;
         } finally {
             this.cerrarConexionDB();
         }
@@ -143,4 +144,28 @@ public class DAOClientesImpl extends ConexionDB implements DAOClientes {
 
     }
 
+    @Override
+    public Cliente buscarPorDNI(String DNI) throws Exception {
+        Cliente cliente = null; // Empezamos asumiendo que no lo encontraremos
+        try {
+            this.establecerConexionDB();
+            PreparedStatement st = this.conectar.prepareStatement("SELECT * FROM Clientes WHERE DNI = ?");
+            st.setString(1, DNI);
+
+            ResultSet rs = st.executeQuery();
+            if (rs.next()) { // Si rs.next() es true, significa que se encontró una fila
+                cliente = new Cliente();
+                cliente.setId_cliente(rs.getInt("id_cliente"));
+                cliente.setNombres(rs.getString("Nombres"));
+                cliente.setDNI(rs.getString("DNI"));
+                // ... setear los otros atributos si los necesitas ...
+            }
+ 
+        } catch (SQLException e) {
+            throw e;
+        } finally {
+            this.cerrarConexionDB();
+        }
+        return cliente; // Devuelve el cliente encontrado, o null si no se encontró ninguno
+    }
 }

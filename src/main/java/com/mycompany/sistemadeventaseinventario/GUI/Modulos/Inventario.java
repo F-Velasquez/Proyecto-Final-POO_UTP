@@ -227,27 +227,39 @@ public class Inventario extends javax.swing.JPanel {
 
         int[] filasSelec = TbListaProductos.getSelectedRows();
 
-        if (filasSelec.length == 1 || filasSelec.length > 1) {
-            DAOProducto daoEliminar = new DAOProductoImpl();
-            int opcion = JOptionPane.showConfirmDialog(this, "Seguro que deseas eliminar ", "", JOptionPane.YES_NO_OPTION);
+        // Validamos que haya al menos una fila seleccionada
+        if (filasSelec.length > 0) {
+
+            // Pedimos confirmación al usuario UNA SOLA VEZ
+            int opcion = JOptionPane.showConfirmDialog(this, "¿Está seguro de que desea eliminar " + filasSelec.length + " registro(s)?", "Confirmar Eliminación", JOptionPane.YES_NO_OPTION);
+
             if (opcion == JOptionPane.YES_OPTION) {
+                DAOProducto daoEliminar = new DAOProductoImpl();
+                boolean todosEliminados = true;
 
-                for (int i : TbListaProductos.getSelectedRows()) {
-                    try {
-                        int product_id = (int) TbListaProductos.getValueAt(i, 0);
-                        daoEliminar.Eliminar(product_id);
-                        //TbListaProductos.remove(i);
-                        CargarTablaInventario();
-
-                    } catch (Exception e) {
-                        e.getMessage();
+                try {
+                    // BUCLE PARA DESACTIVAR EN LA BASE DE DATOS
+                    // Este bucle SOLO se encarga de la lógica de negocio, no de la vista.
+                    for (int fila : filasSelec) {
+                        int product_id = (int) TbListaProductos.getValueAt(fila, 0);
+                        daoEliminar.desactivar(product_id);
                     }
-
+                } catch (Exception e) {
+                    todosEliminados = false; // Marcamos que hubo un error
+                    JOptionPane.showMessageDialog(null, "Ocurrió un error durante la eliminación:\n" + e.getMessage());
                 }
+
+                // ACTUALIZACIÓN DE LA VISTA 
+                // 
+                if (todosEliminados) {
+                    JOptionPane.showMessageDialog(this, "Registro(s) eliminado(s) correctamente.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
+                }
+                CargarTablaInventario(); // Refrescamos la tabla una única vez
             }
 
         } else {
-            JOptionPane.showMessageDialog(this, "Debe seleccionar un producto", "Error al eliminar", JOptionPane.ERROR_MESSAGE);
+            // Mensaje si no se seleccionó nada
+            JOptionPane.showMessageDialog(this, "Debe seleccionar al menos un producto para eliminar.", "Error al eliminar", JOptionPane.ERROR_MESSAGE);
         }
 
 
@@ -315,7 +327,7 @@ public class Inventario extends javax.swing.JPanel {
                     prod.getMarca(),
                     prod.getStock(),
                     prod.getPrecio(),
-                    prod.getNameProveedor(),
+                    prod.getProovedor().getEmpresa(),
                     prod.getObservacion()
                 };
                 modelT.addRow(fila);
@@ -323,7 +335,7 @@ public class Inventario extends javax.swing.JPanel {
 
             if (list.isEmpty()) {
 
-                this.CargarTablaInventario();
+                CargarTablaInventario();
 
             }
 
@@ -379,7 +391,7 @@ public class Inventario extends javax.swing.JPanel {
                     prod.getMarca(),
                     prod.getStock(),
                     prod.getPrecio(),
-                    prod.getNameProveedor(),
+                    prod.getProovedor().getEmpresa(),
                     prod.getObservacion()
                 };
                 tablaInventario.addRow(fila);

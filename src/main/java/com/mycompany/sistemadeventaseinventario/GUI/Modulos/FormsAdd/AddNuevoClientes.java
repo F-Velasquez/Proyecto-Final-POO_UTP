@@ -236,8 +236,8 @@ public class AddNuevoClientes extends JDialog {
 
         String Nombres, Telefono, Email, Direccion, DNI;
 
+        //validar que tengan texto todos los campos
         if (txtNombres.getText().isEmpty() || txtDNI.getText().isEmpty() || txtTelefono.getText().isEmpty() || TxtEmail.getText().isEmpty() || txtDireccion.getText().isEmpty()) {
-
             JOptionPane.showMessageDialog(this, "Debe completar todos los campos", "", JOptionPane.ERROR_MESSAGE);
             return;
         }
@@ -256,7 +256,7 @@ public class AddNuevoClientes extends JDialog {
             cliente.setTelefono(Telefono);
             cliente.setEmail(Email);
             cliente.setDireccion(Direccion);
-
+            
             daoclien.registrar(cliente);
 
             JOptionPane.showMessageDialog(this, "Nuevo cliente agregado", "", JOptionPane.INFORMATION_MESSAGE);
@@ -264,7 +264,6 @@ public class AddNuevoClientes extends JDialog {
             ventanaClientes.cargarTablaClientes();
 
         } catch (Exception e) {
-
             System.out.println(e.getMessage());
         }
 

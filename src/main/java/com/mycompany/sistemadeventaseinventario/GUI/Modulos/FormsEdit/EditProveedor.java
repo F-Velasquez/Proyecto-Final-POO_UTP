@@ -24,10 +24,10 @@ public class EditProveedor extends javax.swing.JDialog {
 
     public EditProveedor(JFrame ventana, Provedores ventProv, Proveedor prove, int id_proveedor) {
         super(ventana, "Editar Proveedor", true);
-        this.VentanaProveedores = ventProv;
-        proved = prove;
-        id_proveedor = idProveedor;
         initComponents();
+        this.VentanaProveedores = ventProv;
+        this.proved = prove;
+        this.idProveedor = id_proveedor;
         MostrarDatos();
     }
 

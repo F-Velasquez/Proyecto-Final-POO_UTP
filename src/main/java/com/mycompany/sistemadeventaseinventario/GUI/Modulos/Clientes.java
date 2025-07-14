@@ -5,6 +5,7 @@ import com.mycompany.sistemadeventaseinventario.GUI.Modulos.FormsEdit.EditClient
 import com.mycompany.sistemadeventaseinventario.Logic.Clases.Cliente;
 import com.mycompany.sistemadeventaseinventario.Persistence.DAO.DAOClientesImpl;
 import com.mycompany.sistemadeventaseinventario.Persistence.Interfaces.DAOClientes;
+import java.awt.Color;
 import java.util.List;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -23,6 +24,7 @@ public class Clientes extends javax.swing.JPanel {
     public Clientes() {
         initComponents();
         cargarTablaClientes();
+
     }
 
     public final void cargarTablaClientes() {
@@ -112,6 +114,7 @@ public class Clientes extends javax.swing.JPanel {
         });
 
         txtDNI.setBackground(new java.awt.Color(242, 242, 242));
+        txtDNI.setForeground(new java.awt.Color(153, 153, 153));
         txtDNI.setBorder(null);
         txtDNI.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -263,6 +266,13 @@ public class Clientes extends javax.swing.JPanel {
 
     private void txtDNIActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtDNIActionPerformed
 
+       /** if (!txtDNI.getText().isEmpty()) {
+            txtDNI.setText("");
+            txtDNI.setForeground(Color.BLACK);
+        }
+        if (txtDNI.getText().isEmpty()) {
+            txtDNI.setText("Ingrese el DNI del cliente");
+        }**/
         btnBuscar.doClick();
 
     }//GEN-LAST:event_txtDNIActionPerformed
@@ -315,7 +325,8 @@ public class Clientes extends javax.swing.JPanel {
                     cli.getDNI(),
                     cli.getTelefono(),
                     cli.getEmail(),
-                    cli.getDireccion(),};
+                    cli.getDireccion()
+                };
 
                 modelT.addRow(fila);
             }

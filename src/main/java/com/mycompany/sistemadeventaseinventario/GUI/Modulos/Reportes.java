@@ -4,6 +4,17 @@
  */
 package com.mycompany.sistemadeventaseinventario.GUI.Modulos;
 
+import com.mycompany.sistemadeventaseinventario.Logic.Clases.GraficoDeVentas;
+import com.mycompany.sistemadeventaseinventario.Persistence.DAO.DAOReportesImpl;
+import com.mycompany.sistemadeventaseinventario.Persistence.Interfaces.DAOReportes;
+import java.awt.BorderLayout;
+import java.util.ArrayList;
+import java.util.List;
+import javax.swing.JOptionPane;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
+import org.jfree.chart.ChartPanel;
 
 /**
  *
@@ -11,13 +22,36 @@ package com.mycompany.sistemadeventaseinventario.GUI.Modulos;
  */
 public class Reportes extends javax.swing.JPanel {
 
-    /**
-     * Creates new form Reportes
-     */
+    private final DAOReportes daoReportes = new DAOReportesImpl();
+    private JTable tablaReporte; // La tabla para mostrar los resultados
+    private JScrollPane scrollPaneReporte; // El contenedor para la tabla
+
     public Reportes() {
         initComponents();
+        // Preparamos el área de visualización del reporte
+        prepararPanelDeReporte();
 
+    }
 
+    private void prepararPanelDeReporte() {
+        // Le damos al panel el layout que necesitamos.
+        panelGris.setLayout(new BorderLayout());
+
+        // Creamos los componentes en memoria para que no sean 'null'.
+        tablaReporte = new JTable();
+        scrollPaneReporte = new JScrollPane(tablaReporte);
+
+        // La línea panelGris.add(...) se elimina de aquí.
+        // La añadiremos más tarde, dentro del método que genera el reporte
+    }
+
+    private String mesANombre(int mes) {
+        String[] meses = {"Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio",
+            "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"};
+        if (mes >= 1 && mes <= 12) {
+            return meses[mes - 1];
+        }
+        return "Mes Inválido";
     }
 
     /**
@@ -32,18 +66,17 @@ public class Reportes extends javax.swing.JPanel {
         panelReportes = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox<>();
+        cbxMes = new javax.swing.JComboBox<>();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        jComboBox2 = new javax.swing.JComboBox<>();
+        cbxAnio = new javax.swing.JComboBox<>();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jPanel2 = new javax.swing.JPanel();
-        jLabel8 = new javax.swing.JLabel();
-        jLabel9 = new javax.swing.JLabel();
+        panelGris = new javax.swing.JPanel();
+        lblTituloReporte = new javax.swing.JLabel();
         jSeparator2 = new javax.swing.JSeparator();
-        jComboBox3 = new javax.swing.JComboBox<>();
+        cbxReporte = new javax.swing.JComboBox<>();
         jLabel7 = new javax.swing.JLabel();
-        btnAgregarProducto1 = new javax.swing.JButton();
+        btnGenerarReportes = new javax.swing.JButton();
 
         panelReportes.setBackground(new java.awt.Color(255, 255, 255));
         panelReportes.setMinimumSize(new java.awt.Dimension(830, 423));
@@ -57,10 +90,10 @@ public class Reportes extends javax.swing.JPanel {
         jLabel2.setForeground(new java.awt.Color(51, 51, 51));
         jLabel2.setText("Seleccione para generar reporte :");
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre" }));
-        jComboBox1.addActionListener(new java.awt.event.ActionListener() {
+        cbxMes.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre" }));
+        cbxMes.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jComboBox1ActionPerformed(evt);
+                cbxMesActionPerformed(evt);
             }
         });
 
@@ -72,58 +105,47 @@ public class Reportes extends javax.swing.JPanel {
         jLabel4.setForeground(new java.awt.Color(51, 51, 51));
         jLabel4.setText("Mes :");
 
-        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "2024", "2025", "2026", "2027", "2028", "2029", "2030" }));
-        jComboBox2.addActionListener(new java.awt.event.ActionListener() {
+        cbxAnio.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "2024", "2025", "2026", "2027", "2028", "2029", "2030" }));
+        cbxAnio.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jComboBox2ActionPerformed(evt);
+                cbxAnioActionPerformed(evt);
             }
         });
 
         jScrollPane2.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 
-        jPanel2.setBackground(new java.awt.Color(204, 204, 204));
+        panelGris.setBackground(new java.awt.Color(204, 204, 204));
 
-        jLabel8.setFont(new java.awt.Font("Roboto", 0, 21)); // NOI18N
-        jLabel8.setForeground(new java.awt.Color(33, 37, 41));
-        jLabel8.setText("Reporte de Ventas Enero 2024");
+        lblTituloReporte.setFont(new java.awt.Font("Roboto", 0, 21)); // NOI18N
+        lblTituloReporte.setForeground(new java.awt.Color(33, 37, 41));
+        lblTituloReporte.setText("Reporte de Ventas MES AÑO");
 
-        jLabel9.setFont(new java.awt.Font("Roboto", 0, 16)); // NOI18N
-        jLabel9.setForeground(new java.awt.Color(51, 51, 51));
-        jLabel9.setText("Generar un reporte detallado de las ventas realizadas por mes");
-
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(10, 10, 10)
-                        .addComponent(jLabel9, javax.swing.GroupLayout.DEFAULT_SIZE, 915, Short.MAX_VALUE))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(6, 6, 6)
-                        .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 307, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap())
-        );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
+        javax.swing.GroupLayout panelGrisLayout = new javax.swing.GroupLayout(panelGris);
+        panelGris.setLayout(panelGrisLayout);
+        panelGrisLayout.setHorizontalGroup(
+            panelGrisLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelGrisLayout.createSequentialGroup()
                 .addGap(6, 6, 6)
-                .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(1, 1, 1)
-                .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(388, Short.MAX_VALUE))
+                .addComponent(lblTituloReporte, javax.swing.GroupLayout.PREFERRED_SIZE, 307, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(618, Short.MAX_VALUE))
+        );
+        panelGrisLayout.setVerticalGroup(
+            panelGrisLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelGrisLayout.createSequentialGroup()
+                .addGap(6, 6, 6)
+                .addComponent(lblTituloReporte, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(421, Short.MAX_VALUE))
         );
 
-        jScrollPane2.setViewportView(jPanel2);
+        jScrollPane2.setViewportView(panelGris);
 
         jSeparator2.setBackground(new java.awt.Color(242, 242, 242));
         jSeparator2.setForeground(new java.awt.Color(242, 242, 242));
 
-        jComboBox3.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Ventas ", "Inventario" }));
-        jComboBox3.addActionListener(new java.awt.event.ActionListener() {
+        cbxReporte.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Ventas", "Inventario", "Grafico Ventas" }));
+        cbxReporte.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jComboBox3ActionPerformed(evt);
+                cbxReporteActionPerformed(evt);
             }
         });
 
@@ -131,15 +153,15 @@ public class Reportes extends javax.swing.JPanel {
         jLabel7.setForeground(new java.awt.Color(51, 51, 51));
         jLabel7.setText("Reporte : ");
 
-        btnAgregarProducto1.setBackground(new java.awt.Color(25, 135, 84));
-        btnAgregarProducto1.setFont(new java.awt.Font("Roboto Condensed", 0, 16)); // NOI18N
-        btnAgregarProducto1.setForeground(new java.awt.Color(255, 255, 255));
-        btnAgregarProducto1.setText("Generar Reporte");
-        btnAgregarProducto1.setBorder(null);
-        btnAgregarProducto1.setIconTextGap(6);
-        btnAgregarProducto1.addActionListener(new java.awt.event.ActionListener() {
+        btnGenerarReportes.setBackground(new java.awt.Color(25, 135, 84));
+        btnGenerarReportes.setFont(new java.awt.Font("Roboto Condensed", 0, 16)); // NOI18N
+        btnGenerarReportes.setForeground(new java.awt.Color(255, 255, 255));
+        btnGenerarReportes.setText("Generar Reporte");
+        btnGenerarReportes.setBorder(null);
+        btnGenerarReportes.setIconTextGap(6);
+        btnGenerarReportes.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnAgregarProducto1ActionPerformed(evt);
+                btnGenerarReportesActionPerformed(evt);
             }
         });
 
@@ -163,17 +185,17 @@ public class Reportes extends javax.swing.JPanel {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(cbxAnio, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
                                 .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(cbxMes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jComboBox3, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(cbxReporte, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(btnAgregarProducto1, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(btnGenerarReportes, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(26, 26, 26))))))
         );
         panelReportesLayout.setVerticalGroup(
@@ -187,12 +209,12 @@ public class Reportes extends javax.swing.JPanel {
                 .addGroup(panelReportesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cbxAnio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jComboBox3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cbxMes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cbxReporte, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnAgregarProducto1, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnGenerarReportes, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 293, Short.MAX_VALUE)
                 .addContainerGap())
@@ -210,38 +232,194 @@ public class Reportes extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jComboBox2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox2ActionPerformed
+    private void cbxAnioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxAnioActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jComboBox2ActionPerformed
+    }//GEN-LAST:event_cbxAnioActionPerformed
 
-    private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
+    private void cbxMesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxMesActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jComboBox1ActionPerformed
+    }//GEN-LAST:event_cbxMesActionPerformed
 
-    private void btnAgregarProducto1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarProducto1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnAgregarProducto1ActionPerformed
+    private void btnGenerarReportesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGenerarReportesActionPerformed
 
-    private void jComboBox3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox3ActionPerformed
+        try {
+            int anio = Integer.parseInt(cbxAnio.getSelectedItem().toString());
+            // El mes ya no lo necesitamos para el reporte de ventas
+            int mes = cbxMes.getSelectedIndex() + 1;
+            String tipoReporte = cbxReporte.getSelectedItem().toString().trim();
+
+            if (tipoReporte.equalsIgnoreCase("Ventas")) {
+                // --- CAMBIO: Solo pasamos el año ---
+                generarYMostrarResumenVentas(anio);
+            } else if (tipoReporte.equalsIgnoreCase("Inventario")) {
+                // El de inventario sigue funcionando por mes
+                generarYMostrarReporteInventario(anio, mes);
+            } else if (tipoReporte.equalsIgnoreCase("Grafico Ventas")) {
+                generarYMostrarGraficoVentas(anio);
+            }
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Error al generar el reporte: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+
+    // --- MÉTODO DE INVENTARIO (VERIFICA QUE LO TENGAS ASÍ) ---
+    private void generarYMostrarReporteInventario(int anio, int mes) throws Exception {
+        // LLAMA AL DAO DE INVENTARIO
+        List<Object[]> datos = daoReportes.generarReporteInventario(anio, mes);
+        System.out.println("Reporte de Inventario: Se encontraron " + datos.size() + " registros.");
+
+        // USA LOS TÍTULOS DE INVENTARIO
+        String[] titulos = {"Cod. Producto", "Nombre", "Cantidad Vendida", "Ingresos Generados"};
+
+        DefaultTableModel modelo = new DefaultTableModel(null, titulos) {
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return false;
+            }
+        };
+
+        if (datos.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "No se encontraron datos de ventas de productos para este período.", "Información", JOptionPane.INFORMATION_MESSAGE);
+        } else {
+            for (Object[] fila : datos) {
+                // Los ingresos están en el índice 3
+                fila[3] = String.format("S/ %.2f", fila[3]);
+                modelo.addRow(fila);
+            }
+        }
+        tablaReporte.setModel(modelo);
+        lblTituloReporte.setText("Reporte de Productos Vendidos - " + cbxMes.getSelectedItem().toString() + " " + anio);
+
+        // --- SECUENCIA DE REDIBUJADO ROBUSTA ---
+        panelGris.removeAll();      // 1. Borra todo lo que haya.
+        panelGris.revalidate();     // 2. Valida el layout del panel vacío.
+        panelGris.repaint();        // 3. Pinta el panel vacío.
+
+        panelGris.add(scrollPaneReporte, BorderLayout.CENTER); // 4. Añade la tabla.
+        panelGris.revalidate();     // 5. Valida el layout con el nuevo componente.
+        panelGris.repaint();        // 6. Pinta el panel con la tabla.
+
+    }
+
+    private void generarYMostrarResumenVentas(int anio) throws Exception {
+        
+        List<Object[]> datosMensuales = daoReportes.generarResumenAnualPorMes(anio);
+
+        String[] titulos = {"Período", "Ventas Totales", "Número de Ventas", "Ticket Promedio"};
+        DefaultTableModel modelo = new DefaultTableModel(null, titulos) {
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return false;
+            }
+        };
+
+        double totalIngresosAnio = 0;
+        int totalVentasAnio = 0;
+
+        if (datosMensuales.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "No se encontraron ventas para el año " + anio, "Información", JOptionPane.INFORMATION_MESSAGE);
+        } else {
+            for (Object[] mesData : datosMensuales) {
+                int mesDataNum = (int) mesData[0];
+                double ingresosMes = (double) mesData[1];
+                int ventasMes = (int) mesData[2];
+                double ticketPromedioMes = (double) mesData[3];
+
+                totalIngresosAnio += ingresosMes;
+                totalVentasAnio += ventasMes;
+
+                Object[] filaTabla = {
+                    mesANombre(mesDataNum) + " " + anio,
+                    String.format("S/ %,.2f", ingresosMes),
+                    ventasMes,
+                    String.format("S/ %,.2f", ticketPromedioMes)
+                };
+                modelo.addRow(filaTabla);
+            }
+        }
+
+        // Fila final con el TOTAL ANUAL
+        double ticketPromedioAnio = (totalVentasAnio > 0) ? totalIngresosAnio / totalVentasAnio : 0;
+        Object[] filaTotal = {
+            "Total Año " + anio,
+            String.format("S/ %,.2f", totalIngresosAnio),
+            totalVentasAnio,
+            String.format("S/ %,.2f", ticketPromedioAnio)
+        };
+        modelo.addRow(filaTotal);
+
+        tablaReporte.setModel(modelo);
+        lblTituloReporte.setText("Resumen de Ventas del Año " + anio);
+
+        // --- SECUENCIA DE REDIBUJADO  ---
+        panelGris.removeAll();      // 1. Borra todo lo que haya.
+        panelGris.revalidate();     // 2. Valida el layout del panel vacío.
+        panelGris.repaint();        // 3. Pinta el panel vacío (elimina los "fantasmas").
+
+        panelGris.add(scrollPaneReporte, BorderLayout.CENTER); // 4. Añade la tabla.
+        panelGris.revalidate();     // 5. Valida el layout con el nuevo componente.
+        panelGris.repaint();        // 6. Pinta el panel con la tabla.
+ 
+    }
+
+    private void generarYMostrarGraficoVentas(int anio) throws Exception {
+        // 1. Obtenemos los datos (reutilizamos el mismo método del DAO)
+        List<Object[]> datosMensuales = daoReportes.generarResumenAnualPorMes(anio);
+
+        if (datosMensuales.isEmpty()) {
+            panelGris.removeAll(); // Limpiamos el panel por si había algo antes
+            panelGris.repaint();
+            JOptionPane.showMessageDialog(this, "No hay datos suficientes para generar un gráfico para el año " + anio, "Datos insuficientes", JOptionPane.INFORMATION_MESSAGE);
+            return;
+        }
+
+        // 2. Creamos el gráfico usando nuestro servicio
+        GraficoDeVentas graficoService = new GraficoDeVentas();
+
+        // 3. Preparamos los datos para el servicio (necesita un formato específico)
+        List<Object[]> datosParaGrafico = new ArrayList<>();
+        for (Object[] mesData : datosMensuales) {
+            datosParaGrafico.add(new Object[]{
+                mesANombre((int) mesData[0]) + " " + anio, // Período
+                mesData[1], // Ventas Totales
+                mesData[2] // Número de Ventas
+            });
+        }
+
+        ChartPanel chartPanel = graficoService.crearGraficoVentasAnual(datosParaGrafico);
+
+        // 4. Mostramos el gráfico en el panel
+        panelGris.removeAll(); // Limpiamos el panel
+        panelGris.add(chartPanel, BorderLayout.CENTER); // Añadimos solo el gráfico
+        panelGris.revalidate();
+        panelGris.repaint();
+
+        lblTituloReporte.setText("Gráfico de Evolución de Ventas del Año " + anio);
+
+
+    }//GEN-LAST:event_btnGenerarReportesActionPerformed
+
+
+    private void cbxReporteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxReporteActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jComboBox3ActionPerformed
+    }//GEN-LAST:event_cbxReporteActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnAgregarProducto1;
-    private javax.swing.JComboBox<String> jComboBox1;
-    private javax.swing.JComboBox<String> jComboBox2;
-    private javax.swing.JComboBox<String> jComboBox3;
+    private javax.swing.JButton btnGenerarReportes;
+    private javax.swing.JComboBox<String> cbxAnio;
+    private javax.swing.JComboBox<String> cbxMes;
+    private javax.swing.JComboBox<String> cbxReporte;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
-    private javax.swing.JLabel jLabel9;
-    private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JSeparator jSeparator2;
+    private javax.swing.JLabel lblTituloReporte;
+    private javax.swing.JPanel panelGris;
     private javax.swing.JPanel panelReportes;
     // End of variables declaration//GEN-END:variables
 }

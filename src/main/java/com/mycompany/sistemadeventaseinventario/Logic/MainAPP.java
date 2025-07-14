@@ -9,8 +9,5 @@ public class MainAPP {
         Login initSesion = new Login();
         initSesion.setLocationRelativeTo(null);
         initSesion.setVisible(true);
-        
-        
-        
     }
 }

@@ -135,6 +135,11 @@ public class Provedores extends javax.swing.JPanel {
 
         txtnombre.setBackground(new java.awt.Color(242, 242, 242));
         txtnombre.setBorder(null);
+        txtnombre.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtnombreActionPerformed(evt);
+            }
+        });
 
         jLabel5.setFont(new java.awt.Font("Roboto", 0, 16)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(51, 51, 51));
@@ -362,6 +367,10 @@ public class Provedores extends javax.swing.JPanel {
 
 
     }//GEN-LAST:event_btnEliminarActionPerformed
+
+    private void txtnombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtnombreActionPerformed
+        btnBuscar.doClick();
+    }//GEN-LAST:event_txtnombreActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
